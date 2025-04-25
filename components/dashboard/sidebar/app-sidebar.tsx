@@ -11,7 +11,7 @@ import ProfileSidebar from "./profile-sidebar";
   export const AppSidebar = ()=>{
 
     return (
-      <Sidebar className="bg-white">
+      <Sidebar collapsible="icon" className="bg-white">
         <SidebarHeader  className="bg-white">
             <div className="py-1 px-3">
               <DashboardLogo/>
