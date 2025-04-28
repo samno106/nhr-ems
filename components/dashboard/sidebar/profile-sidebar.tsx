@@ -37,7 +37,7 @@ export const ProfileSidebar=()=>{
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton
                 size="lg"
-                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
               >
                 <Avatar className="h-8 w-8 rounded-lg ">
                   <AvatarImage src={user.avatar} alt={user.name} />
@@ -70,21 +70,21 @@ export const ProfileSidebar=()=>{
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup className=" space-y-1.5">
-                <DropdownMenuItem className="text-xs font-medium text-gray-600">
+                <DropdownMenuItem className="text-xs font-medium text-gray-600 cursor-pointer">
                   <BadgeCheck className=" size-3.5"/>
                   Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-xs font-medium text-gray-600">
+                <DropdownMenuItem className="text-xs font-medium text-gray-600 cursor-pointer">
                   <Settings className=" size-3.5"/>
                   Settings
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-xs font-medium text-gray-600">
+                <DropdownMenuItem className="text-xs font-medium text-gray-600 cursor-pointer">
                   <Bell className=" size-3.5"/>
                   Notifications
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-xs font-medium text-gray-600">
+              <DropdownMenuItem className="text-xs font-medium text-gray-600 cursor-pointer">
                 <LogOut className=" size-3.5"/>
                 Log out
               </DropdownMenuItem>
