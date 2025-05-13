@@ -1,14 +1,17 @@
+import { AppHero } from "@/components/layouts";
 import SettingClient from "./_components/setting-client";
 
-
-export default function Settings() {
+export default function SettingsPage() {
   return (
     <div className="min-h-screen h-auto px-10">
-      <div>
-        <h2 className="text-2xl font-bold mt-2">Settings</h2>
-        <span className="text-sm text-gray-500 font-medium">Manage your account and system settings</span>
-      </div>
-      <SettingClient/>
+      <AppHero
+        heroModel={{
+          title: "Settings",
+          sub_title: "Manage your account settings and preferences.",
+        }}
+      />
+
+      <SettingClient />
     </div>
   );
 }

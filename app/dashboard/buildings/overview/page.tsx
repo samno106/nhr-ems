@@ -1,12 +1,12 @@
 import { AppHero } from "@/components/layouts";
 
-export default function DashboardPage() {
+export default function OverviewPage() {
   return (
     <div className="flex items-start min-h-screen h-auto px-10">
       <AppHero
         heroModel={{
-          title: "Dashborad",
-          sub_title: "Welcome back, Admin",
+          title: "Buildings Dashboard",
+          sub_title: "Overview of buildings and occupancy.",
         }}
       />
     </div>

@@ -1,34 +1,18 @@
-import { AppSidebar } from "@/components/dashboard/sidebar/app-sidebar";
-import { Button } from "@/components/ui/button";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Bell, Moon } from "lucide-react";
+import { AppHeader, AppSidebar } from "@/components/layouts";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default function DashboardLayout({
-    children,
-  }: Readonly<{
-    children: React.ReactNode;
-  }>) {
-    return (
-      <SidebarProvider >
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <SidebarProvider>
       <AppSidebar />
       <main className="w-full">
-        <div className="py-2 px-8 flex justify-between">
-          <SidebarTrigger className=" size-8 text-gray-700"/>
-          <div className="flex items-center space-x-3">
-            <div className=" relative">
-            <div className="w-4 h-4 absolute right-1 rounded-full bg-red-500 text-white text-[10px] text-center font-medium border border-white">2</div>
-            <Button variant="ghost" size={"sm"} className="bg-gray-100 hover:bg-gray-200 text-gray-700">
-              <Bell/>
-            </Button>
-            </div>
-            <Button variant="ghost" size={"sm"} className="bg-gray-100 hover:bg-gray-200 text-gray-700">
-              <Moon/>
-            </Button>
-          </div>
-        </div>
+        <AppHeader />
         {children}
       </main>
     </SidebarProvider>
-    );
-  }
-  
+  );
+}
