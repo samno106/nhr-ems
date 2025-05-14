@@ -1,5 +1,5 @@
 import { AppHero } from "@/components/layouts";
-import BuildingsClient from "./_components/buildings-client";
+import BuildingsClient from "./_components/client";
 
 export default function DataPage() {
   return (

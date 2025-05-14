@@ -1,16 +1,16 @@
-// import { PrismaClient } from "@prisma/client/scripts/default-index.js";
+// import { PrismaClient } from "@prisma/client";
 // import { withAccelerate } from "@prisma/extension-accelerate";
 
 // const globalForPrisma = global as unknown as {
-//   prisma: PrismaClient;
+//   prisma: PrismaClient | undefined;
 // };
 
-// const prisma =
-//   globalForPrisma.prisma || new PrismaClient().$extends(withAccelerate());
+// export const prisma =
+//   globalForPrisma.prisma ?? new PrismaClient();
 
 // if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
-// export default prisma;
+// // export default prisma;
 
 import { PrismaClient } from "@prisma/client";
 

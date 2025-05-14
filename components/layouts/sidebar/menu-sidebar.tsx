@@ -91,7 +91,7 @@ const menus = [
       },
       {
         title: "Permission Control",
-        url: "/dashboard/permission-control",
+        url: "/dashboard/user-access",
         icon: ShieldUser,
       },
       {

@@ -5,14 +5,18 @@ declare module "next-auth" {
     user: {
       id: string;
       email: string;
-      // Add any other custom properties here
+      firstName: string;
+      lastName: string;
+      roleId: string;
     };
   }
 
   interface User {
     id: string;
     email: string;
-    // Add any other user properties from your database
+    firstName: string;
+    lastName: string;
+    roleId: string;
   }
 }
 
@@ -20,6 +24,8 @@ declare module "next-auth/jwt" {
   interface JWT {
     id: string;
     email: string;
-    // Add any other JWT properties here
+    firstName: string;
+    lastName: string;
+    roleId: string;
   }
 }

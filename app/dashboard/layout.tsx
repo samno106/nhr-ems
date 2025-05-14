@@ -1,5 +1,6 @@
 import { AppHeader, AppSidebar } from "@/components/layouts";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { AuthProvider } from "@/providers/auth-provider";
 
 export default function DashboardLayout({
   children,
@@ -7,12 +8,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <main className="w-full">
-        <AppHeader />
-        {children}
-      </main>
-    </SidebarProvider>
+    <AuthProvider>
+      <SidebarProvider>
+        <AppSidebar />
+        <main className="w-full">
+          <AppHeader />
+          {children}
+        </main>
+      </SidebarProvider>
+    </AuthProvider>
   );
 }
