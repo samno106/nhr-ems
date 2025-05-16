@@ -8,7 +8,6 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <AuthProvider>
       <SidebarProvider>
         <AppSidebar />
         <main className="w-full">
@@ -16,6 +15,5 @@ export default function DashboardLayout({
           {children}
         </main>
       </SidebarProvider>
-    </AuthProvider>
   );
 }
