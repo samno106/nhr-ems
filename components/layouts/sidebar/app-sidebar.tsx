@@ -19,7 +19,7 @@ import ProfileSidebar from "./profile-sidebar";
         </SidebarHeader>
         <MenuSidebar/>
         <SidebarFooter  className="bg-white">
-          <div className=" border-t py-2">
+          <div className=" border-t pt-2">
           <ProfileSidebar/>
           </div>
         </SidebarFooter>

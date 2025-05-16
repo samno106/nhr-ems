@@ -1,7 +1,11 @@
-export type UserCardModel = {
+export type UserCardType = {
   id: string;
-  profile: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   status: string;
 };
+
+export interface UserCardModel{
+    user:UserCardType
+}

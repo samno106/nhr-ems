@@ -30,11 +30,6 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
-const user = {
-  name: "Admin",
-  email: "admin@example.com",
-  avatar: "/avatars/shadcn.jpg",
-};
 
 export const ProfileSidebar = () => {
   const { isMobile } = useSidebar();
@@ -84,17 +79,17 @@ export const ProfileSidebar = () => {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
             >
               <Avatar className="h-8 w-8 rounded-lg ">
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage src={''} alt={session && session?.user?.firstName} />
                 <AvatarFallback className="rounded-lg bg-blue-200 font-semibold size-8">
-                  AD
+               A
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold text-xs">
-                  {session.user.firstName + " " + session.user.lastName}
+                  {session && session?.user?.firstName + " " + session?.user?.lastName}
                 </span>
                 <span className="truncate text-[11px] text-gray-500 font-medium">
-                  {session.user.email}
+                  {session && session?.user?.email}
                 </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -109,17 +104,17 @@ export const ProfileSidebar = () => {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage src={''} alt={session && session?.user?.firstName} />
                   <AvatarFallback className="rounded-lg font-semibold bg-blue-200">
-                    AD
+                  A
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold text-xs">
-                    {session.user.firstName + " " + session.user.lastName}
+                    {session && session?.user?.firstName + " " + session?.user?.lastName}
                   </span>
                   <span className="truncate text-[11px] text-gray-500 font-medium">
-                    {session.user.email}
+                    {session && session?.user?.email}
                   </span>
                 </div>
               </div>
