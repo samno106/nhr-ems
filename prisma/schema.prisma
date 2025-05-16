@@ -10,11 +10,10 @@ datasource db {
 
 model User {
   id        String   @id @default(uuid())
+  fullName  String
+  profile   String?
   email     String   @unique
-  username  String?   @unique
   password  String
-  firstName String
-  lastName  String
   status    UserStatus @default(Pending)
   roleId    String?
   role      Role?    @relation(fields: [roleId], references: [id])

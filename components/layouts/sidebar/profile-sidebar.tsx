@@ -1,5 +1,6 @@
 "use client";
 
+import { UserProfileSkeleton } from "@/components/skeletons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -30,11 +31,10 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
-
 export const ProfileSidebar = () => {
   const { isMobile } = useSidebar();
   const { data: session, status } = useSession();
-  
+
   const handleLogout = async () => {
     try {
       await signOut({
@@ -48,25 +48,7 @@ export const ProfileSidebar = () => {
   };
 
   if (status === "loading") {
-    return (
-      <SidebarMenu>
-        <SidebarMenuItem>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton>
-                <div className="flex items-center space-x-4">
-                  <Skeleton className="h-8 w-8 rounded-lg" />
-                  <div className="space-y-2">
-                    <Skeleton className="h-4 w-[150px]" />
-                    <Skeleton className="h-4 w-[150px]" />
-                  </div>
-                </div>
-              </SidebarMenuButton>
-            </DropdownMenuTrigger>
-          </DropdownMenu>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    );
+    return <UserProfileSkeleton />;
   }
 
   return (
@@ -79,14 +61,17 @@ export const ProfileSidebar = () => {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
             >
               <Avatar className="h-8 w-8 rounded-lg ">
-                <AvatarImage src={''} alt={session && session?.user?.firstName} />
+                <AvatarImage
+                  src={""}
+                  alt={session && session?.user?.fullName}
+                />
                 <AvatarFallback className="rounded-lg bg-blue-200 font-semibold size-8">
-               A
+                  A
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold text-xs">
-                  {session && session?.user?.firstName + " " + session?.user?.lastName}
+                  {session && session?.user?.fullName}
                 </span>
                 <span className="truncate text-[11px] text-gray-500 font-medium">
                   {session && session?.user?.email}
@@ -104,14 +89,17 @@ export const ProfileSidebar = () => {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={''} alt={session && session?.user?.firstName} />
+                  <AvatarImage
+                    src={""}
+                    alt={session && session?.user?.fullName}
+                  />
                   <AvatarFallback className="rounded-lg font-semibold bg-blue-200">
-                  A
+                    A
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold text-xs">
-                    {session && session?.user?.firstName + " " + session?.user?.lastName}
+                    {session && session?.user?.fullName}
                   </span>
                   <span className="truncate text-[11px] text-gray-500 font-medium">
                     {session && session?.user?.email}

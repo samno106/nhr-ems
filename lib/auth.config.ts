@@ -6,14 +6,13 @@ import bcrypt from "bcryptjs";
 import type { JWT } from "next-auth/jwt";
 import type { Session, SessionStrategy, User } from "next-auth";
 
-export const authOptions = {
-  adapter: PrismaAdapter(prisma),
+export const authConfig = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { type: "email" },
+        password: { type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -21,7 +20,7 @@ export const authOptions = {
         }
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email, status:"Active" },
+          where: { email: credentials.email, status: "Active" },
         });
 
         if (!user) {
@@ -40,9 +39,6 @@ export const authOptions = {
       },
     }),
   ],
-  // session: {
-  //   strategy: "database" as SessionStrategy,
-  // },
   session: {
     strategy: "jwt" as SessionStrategy,
   },
@@ -50,12 +46,13 @@ export const authOptions = {
     signIn: "/",
   },
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: User }) {
+    async jwt({ token, user }: { token: JWT; user: User }) {
       if (user) {
         token.id = user.id;
+        token.sub = user.id;
         token.email = user.email;
-        token.firstName = user.firstName;
-        token.lastName = user.lastName;
+        token.fullName = user.fullName;
+        token.profile = user.profile;
         token.roleId = user.roleId;
       }
       return token;
@@ -64,8 +61,8 @@ export const authOptions = {
       if (token) {
         session.user.id = token.id;
         session.user.email = token.email;
-        session.user.firstName = token.firstName;
-        session.user.lastName = token.lastName;
+        session.user.fullName = token.fullName;
+        session.user.profile = token.profile;
         session.user.roleId = token.roleId;
       }
       return session;

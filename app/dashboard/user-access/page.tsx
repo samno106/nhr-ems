@@ -4,10 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 export default async function UserAccessPage() {
   const users = await prisma.user.findMany();
-
   const roles = await prisma.role.findMany();
-
-  console.log(roles)
 
   return (
     <div className="min-h-screen h-auto px-10 mb-10">

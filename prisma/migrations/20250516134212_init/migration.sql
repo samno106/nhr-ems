@@ -7,11 +7,10 @@ CREATE TYPE "PermissionGroup" AS ENUM ('Employees', 'Buildings', 'Reports', 'For
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
+    "fullName" TEXT NOT NULL,
+    "profile" TEXT,
     "email" TEXT NOT NULL,
-    "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "firstName" TEXT NOT NULL,
-    "lastName" TEXT NOT NULL,
     "status" "UserStatus" NOT NULL DEFAULT 'Pending',
     "roleId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -57,9 +56,6 @@ CREATE TABLE "RolePermission" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE SET NULL ON UPDATE CASCADE;

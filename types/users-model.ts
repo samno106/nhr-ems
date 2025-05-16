@@ -1,20 +1,18 @@
 export type UserType = {
   id: string;
-  firstName: string;
-  lastName: string;
-  username:string;
   email: string;
+  fullName: string;
   status: string;
   roleId: string;
+  profile: string;
   createdAt: Date;
-  updatedAt:Date
+  updatedAt: Date;
 };
-
 
 export interface UserModels {
   users: UserType[] | [];
-};
+}
 
-export interface UserModel{
-  user:UserType
+export interface UserModel {
+  user: UserType;
 }
