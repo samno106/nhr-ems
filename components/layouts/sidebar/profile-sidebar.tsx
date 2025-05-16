@@ -39,10 +39,10 @@ const user = {
 export const ProfileSidebar = () => {
   const { isMobile } = useSidebar();
   const { data: session, status } = useSession();
+  
   const handleLogout = async () => {
     try {
       await signOut({
-        redirect: false,
         callbackUrl: "/",
       });
 
