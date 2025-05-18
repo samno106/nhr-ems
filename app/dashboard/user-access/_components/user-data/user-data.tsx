@@ -4,6 +4,7 @@ import { UserCard } from "@/components/cards";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useUserAccessModal } from "@/hooks/use-user-access-modal";
 import { UserType } from "@/types/users-model";
 import { PlusCircle, Search, Users2 } from "lucide-react";
 import { useState } from "react";
@@ -17,6 +18,8 @@ export const UserData = ({
   userSelected: string;
   handleSelectedUser;
 }) => {
+  const userAccessModal = useUserAccessModal();
+
   const [searchUser, setSearchUser] = useState("");
 
   const filteredUsers = users.filter((item) =>
@@ -50,7 +53,11 @@ export const UserData = ({
         />
       </div>
       <div className="mt-3 w-full">
-        <Button variant="outline" className="w-full cursor-pointer text-xs">
+        <Button
+          onClick={() => userAccessModal.onOpen()}
+          variant="outline"
+          className="w-full cursor-pointer text-xs"
+        >
           <PlusCircle className=" size-3.5" />
           <span>New user</span>
         </Button>

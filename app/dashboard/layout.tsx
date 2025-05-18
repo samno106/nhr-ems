@@ -1,5 +1,6 @@
 import { AppHeader, AppSidebar } from "@/components/layouts";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { ModalProvider } from "@/providers/modal-provider";
 import SessionProvider from "@/providers/session-provider";
 
 export default function DashboardLayout({
@@ -16,6 +17,7 @@ export default function DashboardLayout({
           {children}
         </main>
       </SidebarProvider>
+      <ModalProvider />
     </SessionProvider>
   );
 }
