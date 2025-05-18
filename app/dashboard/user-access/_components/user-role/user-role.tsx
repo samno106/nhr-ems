@@ -6,16 +6,19 @@ import PermissionsTab from "./pemissions";
 import { UserModel, UserType } from "@/types/users-model";
 import { RoleType } from "@/types/roles-model";
 import { useState } from "react";
+import { ModuleType } from "@/types/modules-model";
 
 export const UserRole = ({
   user,
   roles,
+  modules,
   role,
   roleSelected,
   handleSelectedRole,
 }: {
   user: UserType;
   roles: RoleType[];
+  modules: ModuleType[];
   role: RoleType;
   roleSelected: string;
   handleSelectedRole;
@@ -41,8 +44,8 @@ export const UserRole = ({
             </TabsContent>
             <TabsContent value="role_permission">
               <PermissionsTab
-                user={user}
                 roles={roles}
+                modules={modules}
                 role={role}
                 roleSelected={roleSelected}
                 handleSelectedRole={handleSelectedRole}

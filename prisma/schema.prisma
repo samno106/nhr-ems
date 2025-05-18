@@ -25,10 +25,11 @@ model Role{
   id            String @id @default(uuid())
   name          String
   description   String?
+  status        RoleStatus  @default(System)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  User          User[]
+  user          User[]
 
   permissions   RolePermission[]
 }
@@ -36,14 +37,26 @@ model Role{
 
 model Permission{
   id            String @id @default(uuid())
-  group         PermissionGroup @default(Employees)
+  moduleId      String?
+  module        Module? @relation(fields: [moduleId], references: [id]) 
   name          String
   slug          String?
+  status        Boolean  @default(true)
   description   String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
   roles         RolePermission[]
+}
+
+model Module{
+  id            String @id @default(uuid())
+  name          String
+  status        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  permissions   Permission[]
 }
 
 model RolePermission{
@@ -62,12 +75,8 @@ enum UserStatus {
   Active
 }
 
-enum PermissionGroup {
-  Employees
-  Buildings
-  Reports
-  Forms
-  Users
-  Settings
+enum RoleStatus {
+  System
+  User
 }
 

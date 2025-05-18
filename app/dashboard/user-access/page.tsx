@@ -5,6 +5,9 @@ import { prisma } from "@/lib/prisma";
 export default async function UserAccessPage() {
   const users = await prisma.user.findMany();
   const roles = await prisma.role.findMany();
+  const modules = await prisma.module.findMany({
+    include: { permissions: true },
+  });
 
   return (
     <div className="min-h-screen h-auto px-10 mb-10">
@@ -14,7 +17,7 @@ export default async function UserAccessPage() {
           sub_title: "Manage user access to system.",
         }}
       />
-      <UserAccessClient users={users} roles={roles} />
+      <UserAccessClient users={users} roles={roles} modules={modules} />
     </div>
   );
 }

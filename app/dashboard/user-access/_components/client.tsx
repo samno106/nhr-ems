@@ -7,13 +7,16 @@ import { RoleType } from "@/types/roles-model";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { UserAccessSkeleton } from "@/components/skeletons";
+import { ModuleType } from "@/types/modules-model";
 
 export const UserAccessClient = ({
   users,
   roles,
+  modules,
 }: {
   users: UserType[];
   roles: RoleType[];
+  modules: ModuleType[];
 }) => {
   const { data: session, status } = useSession();
 
@@ -51,6 +54,7 @@ export const UserAccessClient = ({
         roleSelected={roleSelected}
         handleSelectedRole={handleSelectedRole}
         roles={roles}
+        modules={modules}
         role={roles.filter((role) => role.id === roleSelected)[0]}
       />
     </div>

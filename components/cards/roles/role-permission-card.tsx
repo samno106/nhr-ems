@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { RoleCardModel } from "@/types/cards/role-card-model";
 import { RoleType } from "@/types/roles-model";
@@ -21,6 +22,12 @@ export const RolePermissionCard = ({
         <span className="text-sm font-semibold text-gray-600">
           {role?.name}
         </span>
+        <Badge
+          variant="outline"
+          className=" text-[10px] bg-amber-500 border-none text-white font-medium"
+        >
+          {role?.status}
+        </Badge>
       </div>
       <p className="text-xs text-gray-500 mt-1 font-[400] truncate">
         {role?.description}
