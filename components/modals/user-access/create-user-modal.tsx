@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Save } from "lucide-react";
+import { Loader2, Save } from "lucide-react";
 import { userAccessSchema,UserAccessSchema } from "@/schemas";
 import { createUser } from "@/actions";
 import { startTransition, useState } from "react";
@@ -31,8 +31,10 @@ import { useRouter } from "next/navigation";
 
 
 const CreateUserModal = () => {
+  const [loading,setLoading] = useState(false);
   const userAccessModal = useUserAccessModal();
   const router = useRouter();
+  
 
   const form = useForm<UserAccessSchema>({
     resolver: zodResolver(userAccessSchema),
@@ -45,6 +47,7 @@ const CreateUserModal = () => {
   });
 
   const onSubmit = async (values: UserAccessSchema) => {
+    setLoading(true);
     startTransition(()=>{
 
       createUser(values).then((data)=>{
@@ -61,10 +64,11 @@ const CreateUserModal = () => {
             userAccessModal.onClose();
             toast(data?.success)
           }
+          setLoading(false)
       })
 
     });
-    await createUser(values)
+
   };
 
   return (
@@ -163,11 +167,20 @@ const CreateUserModal = () => {
               <Button
                 type="submit"
                 size="sm"
-                variant="outline"
-                className="ml-auto cursor-pointer bg-blue-200 border-blue-300 hover:bg-blue-300 px-5"
+                
+                className="ml-auto cursor-pointer  px-5"
               >
+                { loading?(
+                   <>
+                   <Loader2 className=" size-3.5 animate-spin"/>
+                   <span className="text-xs">Creating...</span>
+                   </>
+
+                ):( <>
                 <Save className=" size-3.5"/>
                 <span className="text-xs">Create user</span>
+                </>)}
+               
               </Button>
             </div>
           </form>
