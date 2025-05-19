@@ -5,16 +5,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUserAccessModal } from "@/hooks/use-modal";
+import { RoleType } from "@/types/roles-model";
 import { UserType } from "@/types/users-model";
 import { PlusCircle, Search, Users2 } from "lucide-react";
 import { useState } from "react";
 
 export const UserData = ({
   users,
+  roles,
   userSelected,
   handleSelectedUser,
 }: {
   users: UserType[];
+  roles:RoleType[];
   userSelected: string;
   handleSelectedUser;
 }) => {
@@ -54,7 +57,7 @@ export const UserData = ({
       </div>
       <div className="mt-3 w-full">
         <Button
-          onClick={() => userAccessModal.onOpen()}
+          onClick={() => userAccessModal.onOpen(roles)}
           variant="outline"
           className="w-full cursor-pointer text-xs"
         >

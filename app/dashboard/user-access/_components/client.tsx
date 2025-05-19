@@ -46,6 +46,7 @@ export const UserAccessClient = ({
     <div className="flex items-start gap-5 mt-8  rounded min-h-screen h-auto">
       <UserData
         users={users}
+        roles={roles}
         userSelected={userSelected}
         handleSelectedUser={handleSelectedUser}
       />

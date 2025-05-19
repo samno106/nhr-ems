@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { useUserAccessModal } from "@/hooks/use-modal";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import {
@@ -23,28 +23,19 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Save } from "lucide-react";
+import { userAccessSchema,UserAccessSchema } from "@/schemas";
+import { createUser } from "@/actions";
+import { startTransition, useState } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const formSchema = z.object({
-  fullName: z.string({ required_error: "Fullname is required" }).min(1),
-  email: z
-    .string({ required_error: "Email is required" })
-    .min(1, "Email is required")
-    .email("Invalid email address"),
-  password: z
-    .string({ required_error: "Password is required" })
-    .min(1, "Password is required")
-    .min(8, "Password must be more than 8 characters")
-    .max(32, "Password must be less than 32 characters"),
-  roleId: z
-    .string({ required_error: "Role is required" })
-    .min(1, "Role is required"),
-});
 
 const CreateUserModal = () => {
   const userAccessModal = useUserAccessModal();
+  const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<UserAccessSchema>({
+    resolver: zodResolver(userAccessSchema),
     defaultValues: {
       fullName: "",
       email: "",
@@ -53,7 +44,28 @@ const CreateUserModal = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {};
+  const onSubmit = async (values: UserAccessSchema) => {
+    startTransition(()=>{
+
+      createUser(values).then((data)=>{
+
+          if(data?.error){
+            form.reset();
+            userAccessModal.onClose()
+            toast(data?.error)
+          }
+
+          if(data?.success){
+            form.reset();
+            router.refresh();
+            userAccessModal.onClose();
+            toast(data?.success)
+          }
+      })
+
+    });
+    await createUser(values)
+  };
 
   return (
     <Modal
@@ -136,9 +148,11 @@ const CreateUserModal = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                     
-                      <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    
+                     {
+                      userAccessModal.roles.map((role,i)=>(
+                          <SelectItem key={i} value={role.id}>{role.name}</SelectItem>
+                      ))
+                     }
                     </SelectContent>
                   </Select>
                   <FormMessage />

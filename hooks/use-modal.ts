@@ -1,3 +1,4 @@
+import { RoleType } from "@/types/roles-model";
 import { create } from "zustand";
 
 interface useModalStore {
@@ -6,8 +7,16 @@ interface useModalStore {
   onClose: () => void;
 }
 
-export const useUserAccessModal = create<useModalStore>((set) => ({
+interface useUserModalStore {
+  isOpen: boolean;
+  roles:RoleType[];
+  onOpen: (roles:RoleType[]) => void;
+  onClose: () => void;
+}
+
+export const useUserAccessModal = create<useUserModalStore>((set) => ({
   isOpen: false,
-  onOpen: () => set({ isOpen: true }),
+  roles:[],
+  onOpen: (data:RoleType[]) => set({ isOpen: true, roles:data }),
   onClose: () => set({ isOpen: false }),
 }));

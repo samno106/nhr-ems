@@ -35,11 +35,11 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
       <DialogContent className={ size }>
-        <DialogHeader>
+        <DialogHeader className="gap-0.5">
           <DialogTitle className="text-md font-medium">{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <div className="py-4">{children}</div>
+        <div className="pt-4 mt-2">{children}</div>
       </DialogContent>
     </Dialog>
   );
