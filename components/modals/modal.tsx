@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 interface ModalProps {
   title: string;
@@ -33,12 +34,12 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
-      <DialogContent className={size}>
+      <DialogContent className={ size }>
         <DialogHeader>
           <DialogTitle className="text-md font-medium">{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <div>{children}</div>
+        <div className="py-4">{children}</div>
       </DialogContent>
     </Dialog>
   );

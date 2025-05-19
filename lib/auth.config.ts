@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 
 import type { JWT } from "next-auth/jwt";
 import type { Session, SessionStrategy, User } from "next-auth";
+import { comparePassword } from "./password.bcrypt";
 
 export const authConfig = {
   providers: [
@@ -27,10 +28,7 @@ export const authConfig = {
           throw new Error("Invalid email or password.");
         }
 
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
+        const isPasswordValid = await comparePassword(credentials.password, user.password);
         if (!isPasswordValid) {
           throw new Error("Invalid email or password.");
         }

@@ -4,7 +4,7 @@ import { UserCard } from "@/components/cards";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUserAccessModal } from "@/hooks/use-user-access-modal";
+import { useUserAccessModal } from "@/hooks/use-modal";
 import { UserType } from "@/types/users-model";
 import { PlusCircle, Search, Users2 } from "lucide-react";
 import { useState } from "react";

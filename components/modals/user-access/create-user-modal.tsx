@@ -9,7 +9,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useUserAccessModal } from "@/hooks/use-user-access-modal";
+import { useUserAccessModal } from "@/hooks/use-modal";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Save } from "lucide-react";
 
 const formSchema = z.object({
   fullName: z.string({ required_error: "Fullname is required" }).min(1),
@@ -75,7 +76,7 @@ const CreateUserModal = () => {
                     <Input
                       placeholder="Your name"
                       {...field}
-                      className="shadow-none py-5 rounded"
+                      className="shadow-none py-3 rounded"
                     />
                   </FormControl>
                   <FormMessage />
@@ -93,7 +94,7 @@ const CreateUserModal = () => {
                       type="email"
                       placeholder="Your email"
                       {...field}
-                      className="shadow-none py-5 rounded"
+                      className="shadow-none py-3 rounded"
                     />
                   </FormControl>
                   <FormMessage />
@@ -111,7 +112,7 @@ const CreateUserModal = () => {
                       type="password"
                       placeholder="Your password"
                       {...field}
-                      className="shadow-none py-5 rounded"
+                      className="shadow-none py-3 rounded"
                     />
                   </FormControl>
                   <FormMessage />
@@ -130,18 +131,14 @@ const CreateUserModal = () => {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="w-full py-5">
+                      <SelectTrigger className="w-full py-3">
                         <SelectValue placeholder="Select your role" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="m@example.com">
-                        m@example.com
-                      </SelectItem>
+                     
                       <SelectItem value="m@google.com">m@google.com</SelectItem>
-                      <SelectItem value="m@support.com">
-                        m@support.com
-                      </SelectItem>
+                    
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -152,9 +149,11 @@ const CreateUserModal = () => {
               <Button
                 type="submit"
                 size="sm"
-                className="ml-auto cursor-pointer"
+                variant="outline"
+                className="ml-auto cursor-pointer bg-blue-200 border-blue-300 hover:bg-blue-300 px-5"
               >
-                Create user
+                <Save className=" size-3.5"/>
+                <span className="text-xs">Create user</span>
               </Button>
             </div>
           </form>
