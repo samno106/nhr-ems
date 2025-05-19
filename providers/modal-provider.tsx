@@ -1,6 +1,8 @@
 "use client";
 
-import CreateUserModal from "@/components/modals/user-access/create-user-modal";
+import CreateUserModal from "@/components/modals/users/create-user-modal";
+import UpdateUserInfoModal from "@/components/modals/users/update-user-info-modal";
+import UpdateUserStatusModal from "@/components/modals/users/update-user-status-modal";
 import { useEffect, useState } from "react";
 
 export const ModalProvider = () => {
@@ -17,6 +19,8 @@ export const ModalProvider = () => {
   return (
     <>
       <CreateUserModal />
+      <UpdateUserInfoModal />
+      <UpdateUserStatusModal />
     </>
   );
 };

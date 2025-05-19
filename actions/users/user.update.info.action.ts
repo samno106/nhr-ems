@@ -2,28 +2,30 @@
 
 import { hashedPassword } from "@/lib/password.bcrypt";
 import { prisma } from "@/lib/prisma";
-import { UserAccessSchema, userAccessSchema } from "@/schemas";
+import {
+  userAccessSchema,
+  userUpdateInfoSchema,
+  UserUpdateInfoSchema,
+} from "@/schemas";
 
-export async function createUser(userSchema: UserAccessSchema) {
-  const result = userAccessSchema.safeParse(userSchema);
+export async function updateUserInfo(userSchema: UserUpdateInfoSchema) {
+  const result = userUpdateInfoSchema.safeParse(userSchema);
 
   if (!result.success) {
     return { error: "Invalid form data" };
   }
 
   try {
-    await prisma.user.create({
+    await prisma.user.update({
+      where: { id: userSchema.id },
       data: {
         fullName: userSchema.fullName,
         email: userSchema.email,
-        password: (await hashedPassword(userSchema.password)).toString(),
-        roleId: userSchema.roleId,
-        status: "Active",
       },
     });
 
     await prisma.$disconnect();
-    return { success: "User created successfully" };
+    return { success: "User info updated successfully" };
   } catch (error) {
     return { error: "Something went wrong. Please try again." };
   }

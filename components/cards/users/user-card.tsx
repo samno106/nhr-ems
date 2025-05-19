@@ -1,7 +1,6 @@
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { UserCardModel } from "@/types/cards/user-card-model";
 import { UserType } from "@/types/users-model";
 import { User2 } from "lucide-react";
 

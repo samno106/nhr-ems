@@ -1,8 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { RoleCardModel } from "@/types/cards/role-card-model";
 import { RoleType } from "@/types/roles-model";
-import { CheckCircle2, Circle } from "lucide-react";
 
 export const RolePermissionCard = ({
   role,

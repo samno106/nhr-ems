@@ -19,7 +19,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { AuthSchema, authSchema } from "@/schemas";
 
-
 export const SiginClient = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -44,11 +43,11 @@ export const SiginClient = () => {
 
       if (result?.error) {
         toast.error("Unathorized", {
-          description:result.error
+          description: result.error,
         });
       } else {
-        toast.success("Success",{
-          description:"You login successfuly"
+        toast.success("Success", {
+          description: "You login successfuly",
         });
         router.push("/dashboard/");
       }
@@ -110,9 +109,14 @@ export const SiginClient = () => {
           <div>
             <Button
               type="submit"
-              className="px-24 py-6 flex justify-between items-center w-[50%] cursor-pointer"
+              className="px-24 py-6 flex justify-between items-center w-[40%] cursor-pointer"
             >
-              <span className="pl-4">Login</span>
+              {loading ? (
+                <span className="pl-4">Processing...</span>
+              ) : (
+                <span className="pl-4">Login</span>
+              )}
+
               {loading ? (
                 <Loader2 className=" size-5 mr-2 animate-spin" />
               ) : (

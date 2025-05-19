@@ -17,7 +17,7 @@ export const UserData = ({
   handleSelectedUser,
 }: {
   users: UserType[];
-  roles:RoleType[];
+  roles: RoleType[];
   userSelected: string;
   handleSelectedUser;
 }) => {
@@ -65,7 +65,7 @@ export const UserData = ({
           <span>New user</span>
         </Button>
       </div>
-      <div className="mt-5 space-y-5">
+      <div className="mt-5 space-y-3">
         {filteredUsers &&
           filteredUsers.map((user, index) => (
             <div key={index} onClick={() => onSelectedUser(user.id)}>

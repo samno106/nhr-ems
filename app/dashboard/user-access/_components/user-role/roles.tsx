@@ -15,7 +15,7 @@ export const RolesTab = ({
   roles: RoleType[];
 }) => {
   return (
-    <div className="py-2 ">
+    <div className="pt-4 border-t">
       <div className="border-b pb-5 px-2">
         <UserProfile user={user} />
       </div>

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { RoleType } from "@/types/roles-model";
 import { UserType } from "@/types/users-model";
-import { Pen, PlusCircle } from "lucide-react";
+import { Pen, PenBoxIcon, PlusCircle } from "lucide-react";
 import PermissionList from "./permission-list";
 import { ModuleType } from "@/types/modules-model";
 
@@ -65,9 +65,12 @@ export const PermissionsTab = ({
             </Badge>
           </div>
           <div className=" text-right w-20 ">
-            <Button size={"sm"} variant={"outline"}>
-              <Pen className=" size-3" />
-              <span>Edit</span>
+            <Button
+              size="icon"
+              variant="ghost"
+              className="w-8 h-8 cursor-pointer"
+            >
+              <PenBoxIcon className=" size-4 text-gray-600" />
             </Button>
           </div>
         </div>
@@ -77,7 +80,7 @@ export const PermissionsTab = ({
           <div className=" flex justify-between items-center px-1 py-2">
             <h4 className="text-sm font-semibold ">Permissions</h4>
             <Button size="sm" variant="outline">
-              <PlusCircle className=" size-3" />
+              <PlusCircle className=" size-3 " />
               <span className="text-xs">New permission</span>
             </Button>
           </div>
