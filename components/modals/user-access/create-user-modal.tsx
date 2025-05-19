@@ -55,14 +55,16 @@ const CreateUserModal = () => {
           if(data?.error){
             form.reset();
             userAccessModal.onClose()
-            toast(data?.error)
+            toast.error("Error", {
+              description:data?.error
+            })
           }
 
           if(data?.success){
             form.reset();
             router.refresh();
             userAccessModal.onClose();
-            toast(data?.success)
+            toast.success("Success",{ description: data?.success})
           }
           setLoading(false)
       })

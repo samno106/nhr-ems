@@ -17,7 +17,7 @@ export const authConfig = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Email and password are required.");
+          throw new Error("The email and password are required.");
         }
 
         const user = await prisma.user.findUnique({
@@ -25,12 +25,12 @@ export const authConfig = {
         });
 
         if (!user) {
-          throw new Error("Invalid email or password.");
+          throw new Error("Your email or password is incorrect.");
         }
 
         const isPasswordValid = await comparePassword(credentials.password, user.password);
         if (!isPasswordValid) {
-          throw new Error("Invalid email or password.");
+          throw new Error("Your email or password is incorrect.");
         }
 
         return user;

@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { string, z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronRight, KeyRound, Loader2, User2 } from "lucide-react";
@@ -18,31 +17,22 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { AuthSchema, authSchema } from "@/schemas";
 
-const formSchema = z.object({
-  email: string({ required_error: "Email is required" })
-    .min(1, "Email is required")
-    .email("Invalid email"),
-  password: string({ required_error: "Password is required" })
-    .min(1, "Password is required")
-    .min(8, "Password must be more than 8 characters")
-    .max(32, "Password must be less than 32 characters"),
-});
 
 export const SiginClient = () => {
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<AuthSchema>({
+    resolver: zodResolver(authSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: AuthSchema) {
     setLoading(true);
     const { email, password } = values;
     try {
@@ -53,16 +43,17 @@ export const SiginClient = () => {
       });
 
       if (result?.error) {
-        setError(result.error);
-        toast(result.error);
-        console.log(result.error);
+        toast.error("Unathorized", {
+          description:result.error
+        });
       } else {
-        toast("Login Success");
+        toast.success("Success",{
+          description:"You login successfuly"
+        });
         router.push("/dashboard/");
       }
     } catch (err: any) {
-      toast(err?.message);
-      setError("An error occurred. Please try again.");
+      toast.error(err?.message);
     } finally {
       setLoading(false);
     }
