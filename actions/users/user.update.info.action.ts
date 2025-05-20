@@ -8,8 +8,8 @@ import {
   UserUpdateInfoSchema,
 } from "@/schemas";
 
-export async function updateUserInfo(userSchema: UserUpdateInfoSchema) {
-  const result = userUpdateInfoSchema.safeParse(userSchema);
+export async function updateUserInfo(schema: UserUpdateInfoSchema) {
+  const result = userUpdateInfoSchema.safeParse(schema);
 
   if (!result.success) {
     return { error: "Invalid form data" };
@@ -17,10 +17,10 @@ export async function updateUserInfo(userSchema: UserUpdateInfoSchema) {
 
   try {
     await prisma.user.update({
-      where: { id: userSchema.id },
+      where: { id: schema.id },
       data: {
-        fullName: userSchema.fullName,
-        email: userSchema.email,
+        fullName: schema.fullName,
+        email: schema.email,
       },
     });
 

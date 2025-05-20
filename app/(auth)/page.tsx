@@ -1,4 +1,4 @@
-import { AuthLogo } from "@/components/logo";
+import { AuthLogo } from "@/components/layouts/logo";
 import SiginClient from "./_components/signin-client";
 
 export default function Login() {

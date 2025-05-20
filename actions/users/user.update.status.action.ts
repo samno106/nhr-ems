@@ -3,8 +3,8 @@
 import { prisma } from "@/lib/prisma";
 import { userUpdateStatusSchema, UserUpdateStatusSchema } from "@/schemas";
 
-export async function updateUserStatus(userSchema: UserUpdateStatusSchema) {
-  const result = userUpdateStatusSchema.safeParse(userSchema);
+export async function updateUserStatus(schema: UserUpdateStatusSchema) {
+  const result = userUpdateStatusSchema.safeParse(schema);
 
   if (!result.success) {
     return { error: "Data form is invalid" };
@@ -12,9 +12,9 @@ export async function updateUserStatus(userSchema: UserUpdateStatusSchema) {
 
   try {
     await prisma.user.update({
-      where: { id: userSchema.id },
+      where: { id: schema.id },
       data: {
-        status: userSchema.status,
+        status: schema.status,
       },
     });
 

@@ -1,5 +1,6 @@
 "use client";
 
+import CreateRoleModal from "@/components/modals/roles/create-role-modal";
 import CreateUserModal from "@/components/modals/users/create-user-modal";
 import DeleteUserModal from "@/components/modals/users/delete-user-modal";
 import ResetPasswordUserModal from "@/components/modals/users/reset-password-user-modal";
@@ -20,11 +21,14 @@ export const ModalProvider = () => {
 
   return (
     <>
+      {/* user */}
       <CreateUserModal />
       <UpdateUserInfoModal />
       <UpdateUserStatusModal />
       <ResetPasswordUserModal/>
       <DeleteUserModal/>
+      {/* role */}
+      <CreateRoleModal/>
     </>
   );
 };

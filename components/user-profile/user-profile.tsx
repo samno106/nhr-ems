@@ -30,13 +30,13 @@ import {
   useResetPasswordUserModal,
   useUpdateUserModal,
   useUpdateUserStatusModal,
-} from "@/hooks/use-modal";
+} from "@/hooks/use-user-modal";
 
 export const UserProfile = ({ user }: { user: UserType }) => {
-  const updateUserModal = useUpdateUserModal();
-  const updateUserStatusModal = useUpdateUserStatusModal();
-  const resetPasswordUserModal = useResetPasswordUserModal();
-  const deleteUserModal = useDeleteUserModal();
+  const useUpdateModal = useUpdateUserModal();
+  const useStatusModal = useUpdateUserStatusModal();
+  const usePasswordModal = useResetPasswordUserModal();
+  const useDeleteModal = useDeleteUserModal();
                 
 
   return (
@@ -88,24 +88,24 @@ export const UserProfile = ({ user }: { user: UserType }) => {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => updateUserModal.onOpen(user)}
+              onClick={() => useUpdateModal.onOpen(user)}
             >
               <Info className=" size-3.5 text-gray-700" />
               <span>Update info</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => updateUserStatusModal.onOpen(user)}
+              onClick={() => useStatusModal.onOpen(user)}
             >
               <CircleFadingPlusIcon className="size-3.5 text-gray-700" />
               <span>Change Status</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer" onClick={()=>resetPasswordUserModal.onOpen(user.id)}>
+            <DropdownMenuItem className="cursor-pointer" onClick={()=>usePasswordModal.onOpen(user.id)}>
               <KeyRound className="size-3.5 text-gray-700" />
               <span>Reset Password</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-500 cursor-pointer" onClick={()=>deleteUserModal.onOpen(user.id)}>
+            <DropdownMenuItem className="text-red-500 cursor-pointer" onClick={()=>useDeleteModal.onOpen(user.id)}>
               <Trash className="size-3.5 text-red-500" />
               <span className="text-red-500">Delete User</span>
             </DropdownMenuItem>

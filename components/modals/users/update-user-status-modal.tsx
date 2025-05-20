@@ -26,21 +26,20 @@ import { startTransition, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import {
-  useUpdateUserModal,
   useUpdateUserStatusModal,
-} from "@/hooks/use-modal";
+} from "@/hooks/use-user-modal";
 import { updateUserStatus } from "@/actions";
 
 const UpdateUserStatusModal = () => {
   const [loading, setLoading] = useState(false);
-  const updateUserModal = useUpdateUserStatusModal();
+  const useModal = useUpdateUserStatusModal();
   const router = useRouter();
 
   const form = useForm<UserUpdateStatusSchema>({
     resolver: zodResolver(userUpdateStatusSchema),
     defaultValues: {
-      id: updateUserModal.user?.id,
-      status: updateUserModal.user?.status,
+      id: useModal.user?.id,
+      status: useModal.user?.status,
     },
   });
 
@@ -50,7 +49,7 @@ const UpdateUserStatusModal = () => {
       updateUserStatus(values).then((data) => {
         if (data?.error) {
           form.reset();
-          updateUserModal.onClose();
+          useModal.onClose();
           toast.error("Error", {
             description: data?.error,
           });
@@ -59,7 +58,7 @@ const UpdateUserStatusModal = () => {
         if (data?.success) {
           form.reset();
           router.refresh();
-          updateUserModal.onClose();
+          useModal.onClose();
           toast.success("Success", { description: data?.success });
         }
         setLoading(false);
@@ -68,17 +67,17 @@ const UpdateUserStatusModal = () => {
   };
 
   useEffect(() => {
-    if (updateUserModal.user) {
-      form.reset(updateUserModal.user);
+    if (useModal.user) {
+      form.reset(useModal.user);
     }
-  }, [updateUserModal.user]);
+  }, [useModal.user]);
 
   return (
     <Modal
       title="Chnage user status"
       description="Update existing user account status"
-      isOpen={updateUserModal.isOpen}
-      onClose={updateUserModal.onClose}
+      isOpen={useModal.isOpen}
+      onClose={useModal.onClose}
       size="w-[500px]"
     >
       <div>

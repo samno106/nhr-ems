@@ -1,5 +1,5 @@
 
-import { DashboardLogo } from "@/components/logo"
+import { DashboardLogo } from "@/components/layouts/logo"
 import {
     Sidebar,
     SidebarFooter,

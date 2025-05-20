@@ -8,7 +8,7 @@ import { startTransition,useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { deleteUser, resetUserPassword } from "@/actions";
-import { useDeleteUserModal } from "@/hooks/use-modal";
+import { useDeleteUserModal } from "@/hooks/use-user-modal";
 import { useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 
@@ -16,15 +16,15 @@ const DeleteUserModal = () => {
 
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
-  const deleteUserModal = useDeleteUserModal();
+  const useModal = useDeleteUserModal();
   const router = useRouter();
 
   const onSubmit = async () => {
     setLoading(true);
     startTransition(() => {
-        deleteUser(deleteUserModal.id).then((data) => {
+        deleteUser(useModal.id).then((data) => {
         if (data?.error) {
-          deleteUserModal.onClose();
+          useModal.onClose();
           toast.error("Error", {
             description: data?.error,
           });
@@ -32,7 +32,7 @@ const DeleteUserModal = () => {
 
         if (data?.success) {
           router.refresh();
-          deleteUserModal.onClose();
+          useModal.onClose();
           toast.success("Success", { description: data?.success });
         }
         setLoading(false);
@@ -45,19 +45,19 @@ const DeleteUserModal = () => {
     <Modal
       title=""
       description=""
-      isOpen={deleteUserModal.isOpen}
-      onClose={deleteUserModal.onClose}
+      isOpen={useModal.isOpen}
+      onClose={useModal.onClose}
       size="w-[400px]"
     >
       <div>
         <div className="flex items-center justify-start space-x-5">
-            <div className={cn("p-4 rounded-full", session&&session.user.id === deleteUserModal.id?"bg-amber-50":"bg-red-50")}>
-            {session&&session.user.id === deleteUserModal.id ?(<Info className=" size-6 text-amber-400"/>):(<Trash className=" size-6 text-red-400"/>)}
+            <div className={cn("p-4 rounded-full", session&&session.user.id === useModal.id?"bg-amber-50":"bg-red-50")}>
+            {session&&session.user.id === useModal.id ?(<Info className=" size-6 text-amber-400"/>):(<Trash className=" size-6 text-red-400"/>)}
             </div>
             <div>
                 <h3 className="text-lg font-medium text-gray-700 mb-2">Confirm user removal</h3>
                 <p className="text-sm text-gray-500">
-                    {session&&session.user.id === deleteUserModal.id ?"You are current logged in system, are not able to delete own account":"Are you sure you want to delete this user from the system"}</p>
+                    {session&&session.user.id === useModal.id ?"You are current logged in system, are not able to delete own account":"Are you sure you want to delete this user from the system"}</p>
             </div>
         </div>
         <div className="mt-5 w-full flex">
@@ -65,7 +65,7 @@ const DeleteUserModal = () => {
                 onClick={onSubmit}
                 size="sm"
                 variant="destructive"
-                disabled={session&&session.user.id === deleteUserModal.id}
+                disabled={session&&session.user.id === useModal.id}
                 className="ml-auto cursor-pointer  px-5"
               >
                 {loading ? (

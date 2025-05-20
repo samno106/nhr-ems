@@ -4,7 +4,7 @@ import { UserCard } from "@/components/cards";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUserAccessModal } from "@/hooks/use-modal";
+import { useUserAccessModal } from "@/hooks/use-user-modal";
 import { RoleType } from "@/types/roles-model";
 import { UserType } from "@/types/users-model";
 import { PlusCircle, Search, Users2 } from "lucide-react";
@@ -21,7 +21,7 @@ export const UserData = ({
   userSelected: string;
   handleSelectedUser;
 }) => {
-  const userAccessModal = useUserAccessModal();
+  const userCreateModal = useUserAccessModal();
 
   const [searchUser, setSearchUser] = useState("");
 
@@ -57,7 +57,7 @@ export const UserData = ({
       </div>
       <div className="mt-3 w-full">
         <Button
-          onClick={() => userAccessModal.onOpen(roles)}
+          onClick={() => userCreateModal.onOpen(roles)}
           variant="outline"
           className="w-full cursor-pointer text-xs"
         >

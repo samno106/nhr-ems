@@ -20,20 +20,20 @@ import { UserUpdateInfoSchema, userUpdateInfoSchema } from "@/schemas";
 import { startTransition, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useUpdateUserModal } from "@/hooks/use-modal";
+import { useUpdateUserModal } from "@/hooks/use-user-modal";
 import { updateUserInfo } from "@/actions";
 
 const UpdateUserInfoModal = () => {
   const [loading, setLoading] = useState(false);
-  const updateUserModal = useUpdateUserModal();
+  const useModal = useUpdateUserModal();
   const router = useRouter();
 
   const form = useForm<UserUpdateInfoSchema>({
     resolver: zodResolver(userUpdateInfoSchema),
     defaultValues: {
-      id: updateUserModal.user?.id,
-      fullName: updateUserModal.user?.fullName,
-      email: updateUserModal.user?.email,
+      id: useModal.user?.id,
+      fullName: useModal.user?.fullName,
+      email: useModal.user?.email,
     },
   });
 
@@ -43,7 +43,7 @@ const UpdateUserInfoModal = () => {
       updateUserInfo(values).then((data) => {
         if (data?.error) {
           form.reset();
-          updateUserModal.onClose();
+          useModal.onClose();
           toast.error("Error", {
             description: data?.error,
           });
@@ -52,7 +52,7 @@ const UpdateUserInfoModal = () => {
         if (data?.success) {
           form.reset();
           router.refresh();
-          updateUserModal.onClose();
+          useModal.onClose();
           toast.success("Success", { description: data?.success });
         }
         setLoading(false);
@@ -61,17 +61,17 @@ const UpdateUserInfoModal = () => {
   };
 
   useEffect(() => {
-    if (updateUserModal.user) {
-      form.reset(updateUserModal.user);
+    if (useModal.user) {
+      form.reset(useModal.user);
     }
-  }, [updateUserModal.user]);
+  }, [useModal.user]);
 
   return (
     <Modal
       title="Update user info"
       description="Update existing user account informations"
-      isOpen={updateUserModal.isOpen}
-      onClose={updateUserModal.onClose}
+      isOpen={useModal.isOpen}
+      onClose={useModal.onClose}
       size="w-[500px]"
     >
       <div>

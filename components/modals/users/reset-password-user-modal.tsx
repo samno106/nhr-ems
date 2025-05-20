@@ -20,12 +20,12 @@ import { userResetPasswordSchema, UserResetPasswordSchema } from "@/schemas";
 import { startTransition, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useResetPasswordUserModal } from "@/hooks/use-modal";
+import { useResetPasswordUserModal } from "@/hooks/use-user-modal";
 import { resetUserPassword } from "@/actions";
 
 const ResetPasswordUserModal = () => {
   const [loading, setLoading] = useState(false);
-  const resetPasswordUser = useResetPasswordUserModal();
+  const useModal = useResetPasswordUserModal();
   const router = useRouter();
 
   const form = useForm<UserResetPasswordSchema>({
@@ -39,10 +39,10 @@ const ResetPasswordUserModal = () => {
   const onSubmit = async (values: UserResetPasswordSchema) => {
     setLoading(true);
     startTransition(() => {
-      resetUserPassword(values,resetPasswordUser.id).then((data) => {
+      resetUserPassword(values,useModal.id).then((data) => {
         if (data?.error) {
           form.reset();
-          resetPasswordUser.onClose();
+          useModal.onClose();
           toast.error("Error", {
             description: data?.error,
           });
@@ -51,7 +51,7 @@ const ResetPasswordUserModal = () => {
         if (data?.success) {
           form.reset();
           router.refresh();
-          resetPasswordUser.onClose();
+          useModal.onClose();
           toast.success("Success", { description: data?.success });
         }
         setLoading(false);
@@ -65,8 +65,8 @@ const ResetPasswordUserModal = () => {
     <Modal
       title="Reset user password"
       description="Reset password of user account"
-      isOpen={resetPasswordUser.isOpen}
-      onClose={resetPasswordUser.onClose}
+      isOpen={useModal.isOpen}
+      onClose={useModal.onClose}
       size="w-[500px]"
     >
       <div>

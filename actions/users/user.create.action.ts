@@ -4,8 +4,8 @@ import { hashedPassword } from "@/lib/password.bcrypt";
 import { prisma } from "@/lib/prisma";
 import { UserAccessSchema, userAccessSchema } from "@/schemas";
 
-export async function createUser(userSchema: UserAccessSchema) {
-  const result = userAccessSchema.safeParse(userSchema);
+export async function createUser(schema: UserAccessSchema) {
+  const result = userAccessSchema.safeParse(schema);
 
   if (!result.success) {
     return { error: "Invalid form data" };
@@ -14,10 +14,10 @@ export async function createUser(userSchema: UserAccessSchema) {
   try {
     await prisma.user.create({
       data: {
-        fullName: userSchema.fullName,
-        email: userSchema.email,
-        password: (await hashedPassword(userSchema.password)).toString(),
-        roleId: userSchema.roleId,
+        fullName: schema.fullName,
+        email: schema.email,
+        password: (await hashedPassword(schema.password)).toString(),
+        roleId: schema.roleId,
         status: "Active",
       },
     });

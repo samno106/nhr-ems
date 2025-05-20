@@ -9,48 +9,39 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useUserAccessModal } from "@/hooks/use-user-modal";
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Loader2, Save } from "lucide-react";
-import { userAccessSchema,UserAccessSchema } from "@/schemas";
-import { createUser } from "@/actions";
+import { roleCreateSchema, RoleCreateSchema } from "@/schemas";
+import { createRole, createUser } from "@/actions";
 import { startTransition, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useRoleModal } from "@/hooks/use-role-modal";
 
 
-const CreateUserModal = () => {
+const CreateRoleModal = () => {
   const [loading,setLoading] = useState(false);
-  const useModal = useUserAccessModal();
+  const useModal = useRoleModal();
   const router = useRouter();
   
 
-  const form = useForm<UserAccessSchema>({
-    resolver: zodResolver(userAccessSchema),
+  const form = useForm<RoleCreateSchema>({
+    resolver: zodResolver(roleCreateSchema),
     defaultValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      roleId: "",
+      name: "",
+      description: "",
     },
   });
 
-  const onSubmit = async (values: UserAccessSchema) => {
+  const onSubmit = async (values: RoleCreateSchema) => {
     setLoading(true);
     startTransition(()=>{
 
-      createUser(values).then((data)=>{
+      createRole(values).then((data)=>{
 
           if(data?.error){
             form.reset();
@@ -75,24 +66,24 @@ const CreateUserModal = () => {
 
   return (
     <Modal
-      title="Create new user"
-      description="Create a new user account and set their initial role."
+      title="Create new role"
+      description="Create a new role with custome permissions. You can assign this role to users later."
       isOpen={useModal.isOpen}
       onClose={useModal.onClose}
-      size="w-[500px]"
+      size="w-[400px]"
     >
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-2">
             <FormField
               control={form.control}
-              name="fullName"
+              name="name"
               render={({ field }) => (
                 <FormItem className="mb-2">
-                  <FormLabel className="text-xs">Fullname</FormLabel>
+                  <FormLabel className="text-xs">Role Name</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Your name"
+                      placeholder="Enter role name"
                       {...field}
                       className="shadow-none py-3 rounded"
                     />
@@ -103,14 +94,13 @@ const CreateUserModal = () => {
             />
             <FormField
               control={form.control}
-              name="email"
+              name="description"
               render={({ field }) => (
                 <FormItem className="mb-2">
-                  <FormLabel className="text-xs">Email</FormLabel>
+                  <FormLabel className="text-xs">Description</FormLabel>
                   <FormControl>
                     <Input
-                      type="email"
-                      placeholder="Your email"
+                      placeholder="Enter role description"
                       {...field}
                       className="shadow-none py-3 rounded"
                     />
@@ -119,52 +109,7 @@ const CreateUserModal = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="mb-2">
-                  <FormLabel className="text-xs">Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Your password"
-                      {...field}
-                      className="shadow-none py-3 rounded"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="roleId"
-              render={({ field }) => (
-                <FormItem className="mb-2">
-                  <FormLabel className="text-xs">Role</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full py-3">
-                        <SelectValue placeholder="Select your role" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                     {
-                      useModal.roles.map((role,i)=>(
-                          <SelectItem key={i} value={role.id}>{role.name}</SelectItem>
-                      ))
-                     }
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            
             <div className="mt-5 w-full flex">
               <Button
                 type="submit"
@@ -180,7 +125,7 @@ const CreateUserModal = () => {
 
                 ):( <>
                 <Save className=" size-3.5"/>
-                <span className="text-xs">Create user</span>
+                <span className="text-xs">Create role</span>
                 </>)}
                
               </Button>
@@ -192,4 +137,4 @@ const CreateUserModal = () => {
   );
 };
 
-export default CreateUserModal;
+export default CreateRoleModal;

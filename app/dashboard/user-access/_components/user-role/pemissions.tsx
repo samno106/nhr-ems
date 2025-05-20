@@ -9,6 +9,7 @@ import { UserType } from "@/types/users-model";
 import { Pen, PenBoxIcon, PlusCircle } from "lucide-react";
 import PermissionList from "./permission-list";
 import { ModuleType } from "@/types/modules-model";
+import { useRoleModal } from "@/hooks/use-role-modal";
 
 export const PermissionsTab = ({
   roles,
@@ -23,6 +24,9 @@ export const PermissionsTab = ({
   roleSelected: string;
   handleSelectedRole;
 }) => {
+
+  const useCreateModal = useRoleModal()
+
   const onSelectedRole = (id: string) => {
     handleSelectedRole(id);
   };
@@ -36,6 +40,7 @@ export const PermissionsTab = ({
             size="icon"
             variant={"ghost"}
             className=" hover:cursor-pointer"
+            onClick={useCreateModal.onOpen}
           >
             <PlusCircle className="size-4" />
           </Button>
