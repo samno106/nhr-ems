@@ -16,18 +16,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2, Save } from "lucide-react";
 import { roleCreateSchema, RoleCreateSchema } from "@/schemas";
-import { createRole, createUser } from "@/actions";
+import { createRole } from "@/actions";
 import { startTransition, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useRoleModal } from "@/hooks/use-role-modal";
 
-
-const CreateRoleModal = () => {
-  const [loading,setLoading] = useState(false);
+export const CreateRoleModal = () => {
+  const [loading, setLoading] = useState(false);
   const useModal = useRoleModal();
   const router = useRouter();
-  
 
   const form = useForm<RoleCreateSchema>({
     resolver: zodResolver(roleCreateSchema),
@@ -39,29 +37,25 @@ const CreateRoleModal = () => {
 
   const onSubmit = async (values: RoleCreateSchema) => {
     setLoading(true);
-    startTransition(()=>{
+    startTransition(() => {
+      createRole(values).then((data) => {
+        if (data?.error) {
+          form.reset();
+          useModal.onClose();
+          toast.error("Error", {
+            description: data?.error,
+          });
+        }
 
-      createRole(values).then((data)=>{
-
-          if(data?.error){
-            form.reset();
-            useModal.onClose()
-            toast.error("Error", {
-              description:data?.error
-            })
-          }
-
-          if(data?.success){
-            form.reset();
-            router.refresh();
-            useModal.onClose();
-            toast.success("Success",{ description: data?.success})
-          }
-          setLoading(false)
-      })
-
+        if (data?.success) {
+          form.reset();
+          router.refresh();
+          useModal.onClose();
+          toast.success("Success", { description: data?.success });
+        }
+        setLoading(false);
+      });
     });
-
   };
 
   return (
@@ -109,25 +103,24 @@ const CreateRoleModal = () => {
                 </FormItem>
               )}
             />
-            
+
             <div className="mt-5 w-full flex">
               <Button
                 type="submit"
                 size="sm"
-                
                 className="ml-auto cursor-pointer  px-5"
               >
-                { loading?(
-                   <>
-                   <Loader2 className=" size-3.5 animate-spin"/>
-                   <span className="text-xs">Saving...</span>
-                   </>
-
-                ):( <>
-                <Save className=" size-3.5"/>
-                <span className="text-xs">Create Role</span>
-                </>)}
-               
+                {loading ? (
+                  <>
+                    <Loader2 className=" size-3.5 animate-spin" />
+                    <span className="text-xs">Saving...</span>
+                  </>
+                ) : (
+                  <>
+                    <Save className=" size-3.5" />
+                    <span className="text-xs">Create Role</span>
+                  </>
+                )}
               </Button>
             </div>
           </form>

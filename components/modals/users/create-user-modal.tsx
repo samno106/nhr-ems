@@ -23,18 +23,16 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Loader2, Save } from "lucide-react";
-import { userAccessSchema,UserAccessSchema } from "@/schemas";
+import { userAccessSchema, UserAccessSchema } from "@/schemas";
 import { createUser } from "@/actions";
 import { startTransition, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-
-const CreateUserModal = () => {
-  const [loading,setLoading] = useState(false);
+export const CreateUserModal = () => {
+  const [loading, setLoading] = useState(false);
   const useModal = useUserAccessModal();
   const router = useRouter();
-  
 
   const form = useForm<UserAccessSchema>({
     resolver: zodResolver(userAccessSchema),
@@ -48,29 +46,25 @@ const CreateUserModal = () => {
 
   const onSubmit = async (values: UserAccessSchema) => {
     setLoading(true);
-    startTransition(()=>{
+    startTransition(() => {
+      createUser(values).then((data) => {
+        if (data?.error) {
+          form.reset();
+          useModal.onClose();
+          toast.error("Error", {
+            description: data?.error,
+          });
+        }
 
-      createUser(values).then((data)=>{
-
-          if(data?.error){
-            form.reset();
-            useModal.onClose()
-            toast.error("Error", {
-              description:data?.error
-            })
-          }
-
-          if(data?.success){
-            form.reset();
-            router.refresh();
-            useModal.onClose();
-            toast.success("Success",{ description: data?.success})
-          }
-          setLoading(false)
-      })
-
+        if (data?.success) {
+          form.reset();
+          router.refresh();
+          useModal.onClose();
+          toast.success("Success", { description: data?.success });
+        }
+        setLoading(false);
+      });
     });
-
   };
 
   return (
@@ -154,11 +148,11 @@ const CreateUserModal = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                     {
-                      useModal.roles.map((role,i)=>(
-                          <SelectItem key={i} value={role.id}>{role.name}</SelectItem>
-                      ))
-                     }
+                      {useModal.roles.map((role, i) => (
+                        <SelectItem key={i} value={role.id}>
+                          {role.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -169,20 +163,19 @@ const CreateUserModal = () => {
               <Button
                 type="submit"
                 size="sm"
-                
                 className="ml-auto cursor-pointer  px-5"
               >
-                { loading?(
-                   <>
-                   <Loader2 className=" size-3.5 animate-spin"/>
-                   <span className="text-xs">Saving...</span>
-                   </>
-
-                ):( <>
-                <Save className=" size-3.5"/>
-                <span className="text-xs">Create user</span>
-                </>)}
-               
+                {loading ? (
+                  <>
+                    <Loader2 className=" size-3.5 animate-spin" />
+                    <span className="text-xs">Saving...</span>
+                  </>
+                ) : (
+                  <>
+                    <Save className=" size-3.5" />
+                    <span className="text-xs">Create user</span>
+                  </>
+                )}
               </Button>
             </div>
           </form>

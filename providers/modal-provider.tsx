@@ -1,11 +1,16 @@
 "use client";
 
-import CreateRoleModal from "@/components/modals/roles/create-role-modal";
-import CreateUserModal from "@/components/modals/users/create-user-modal";
-import DeleteUserModal from "@/components/modals/users/delete-user-modal";
-import ResetPasswordUserModal from "@/components/modals/users/reset-password-user-modal";
-import UpdateUserInfoModal from "@/components/modals/users/update-user-info-modal";
-import UpdateUserStatusModal from "@/components/modals/users/update-user-status-modal";
+import {
+  CreateUserModal,
+  ResetPasswordUserModal,
+  DeleteUserModal,
+  UpdateUserInfoModal,
+  UpdateUserStatusModal,
+  CreateRoleModal,
+  UpdateRoleModal,
+} from "@/components/modals";
+import DeleteRoleModal from "@/components/modals/roles/delete-role-modal";
+
 import { useEffect, useState } from "react";
 
 export const ModalProvider = () => {
@@ -25,10 +30,12 @@ export const ModalProvider = () => {
       <CreateUserModal />
       <UpdateUserInfoModal />
       <UpdateUserStatusModal />
-      <ResetPasswordUserModal/>
-      <DeleteUserModal/>
+      <ResetPasswordUserModal />
+      <DeleteUserModal />
       {/* role */}
-      <CreateRoleModal/>
+      <CreateRoleModal />
+      <UpdateRoleModal />
+      <DeleteRoleModal />
     </>
   );
 };

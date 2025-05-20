@@ -1,15 +1,26 @@
 "use client";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { RolePermissionCard, RoleInfoCard } from "@/components/cards";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { RoleType } from "@/types/roles-model";
-import { UserType } from "@/types/users-model";
-import { Pen, PenBoxIcon, PlusCircle } from "lucide-react";
+import { Info, PlusCircle, Settings, Trash } from "lucide-react";
 import PermissionList from "./permission-list";
 import { ModuleType } from "@/types/modules-model";
-import { useRoleModal } from "@/hooks/use-role-modal";
+import {
+  useDeleteRoleModal,
+  useRoleModal,
+  useUpdateRoleModal,
+} from "@/hooks/use-role-modal";
+import { useEffect } from "react";
 
 export const PermissionsTab = ({
   roles,
@@ -24,8 +35,9 @@ export const PermissionsTab = ({
   roleSelected: string;
   handleSelectedRole;
 }) => {
-
-  const useCreateModal = useRoleModal()
+  const useCreateModal = useRoleModal();
+  const useUpateModal = useUpdateRoleModal();
+  const useDeleteModal = useDeleteRoleModal();
 
   const onSelectedRole = (id: string) => {
     handleSelectedRole(id);
@@ -61,22 +73,46 @@ export const PermissionsTab = ({
         {/* header */}
         <div className="px-3 py-4 flex justify-between items-start ">
           <div className="flex flex-col">
-            <h4 className="text-lg font-semibold">{role.name}</h4>
+            <h4 className="text-lg font-semibold">{role?.name ?? "--/--"}</h4>
             <p className="mt-1 text-[12px] text-gray-500 font-medium">
-              {role.description}
+              {role?.description ?? "--/--"}
             </p>
             <Badge variant="outline" className="mt-2.5">
               14 permissions
             </Badge>
           </div>
-          <div className=" text-right w-20 ">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="w-8 h-8 cursor-pointer"
-            >
-              <PenBoxIcon className=" size-4 text-gray-600" />
-            </Button>
+          <div className="text-right w-20 ">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="w-8 h-8 cursor-pointer"
+                >
+                  <Settings className=" size-4 text-gray-600" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => useUpateModal.onOpen(role?.id, role)}
+                  className="cursor-pointer text-xs font-medium"
+                >
+                  <Info className=" size-3.5 text-gray-700" />
+                  <span>Update info</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  disabled={role?.status === "System" ? true : false}
+                  onClick={() => useDeleteModal.onOpen(role?.id)}
+                  className="text-red-500 cursor-pointer text-xs font-medium"
+                >
+                  <Trash className="size-3.5 text-red-500" />
+                  <span className="text-red-500">Delete Role</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
         {/* header */}

@@ -1,12 +1,6 @@
 "use server";
-
-import { hashedPassword } from "@/lib/password.bcrypt";
 import { prisma } from "@/lib/prisma";
-import {
-  userAccessSchema,
-  userUpdateInfoSchema,
-  UserUpdateInfoSchema,
-} from "@/schemas";
+import { userUpdateInfoSchema, UserUpdateInfoSchema } from "@/schemas";
 
 export async function updateUserInfo(schema: UserUpdateInfoSchema) {
   const result = userUpdateInfoSchema.safeParse(schema);

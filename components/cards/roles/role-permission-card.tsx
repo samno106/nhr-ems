@@ -22,7 +22,12 @@ export const RolePermissionCard = ({
         </span>
         <Badge
           variant="outline"
-          className=" text-[10px] bg-amber-500 border-none text-white font-medium"
+          className={cn(
+            " text-[10px] text-white font-semibold",
+            role?.status === "System"
+              ? "bg-orange-100 text-orange-500 border-orange-300"
+              : " bg-blue-100 text-blue-600  border-blue-300"
+          )}
         >
           {role?.status}
         </Badge>

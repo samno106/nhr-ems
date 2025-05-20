@@ -25,12 +25,10 @@ import { UserUpdateStatusSchema, userUpdateStatusSchema } from "@/schemas";
 import { startTransition, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import {
-  useUpdateUserStatusModal,
-} from "@/hooks/use-user-modal";
+import { useUpdateUserStatusModal } from "@/hooks/use-user-modal";
 import { updateUserStatus } from "@/actions";
 
-const UpdateUserStatusModal = () => {
+export const UpdateUserStatusModal = () => {
   const [loading, setLoading] = useState(false);
   const useModal = useUpdateUserStatusModal();
   const router = useRouter();
@@ -122,7 +120,7 @@ const UpdateUserStatusModal = () => {
                 ) : (
                   <>
                     <Save className=" size-3.5" />
-                    <span className="text-xs">Change status</span>
+                    <span className="text-xs">Save change</span>
                   </>
                 )}
               </Button>

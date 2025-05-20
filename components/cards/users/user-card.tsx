@@ -32,8 +32,10 @@ export const UserCard = ({
       <div className=" ml-auto">
         <Badge
           className={cn(
-            "text-[10px]",
-            user.status === "Active" ? "" : "bg-amber-500 text-gray-800"
+            "text-[10px] font-semibold",
+            user.status === "Active"
+              ? "bg-blue-100 text-blue-600 border-blue-300"
+              : "bg-orange-100 text-orange-500 border-orange-300"
           )}
         >
           {user.status}

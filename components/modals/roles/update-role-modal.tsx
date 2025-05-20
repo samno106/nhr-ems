@@ -13,34 +13,32 @@ import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-
 import { Button } from "@/components/ui/button";
 import { Loader2, Save } from "lucide-react";
-import { UserUpdateInfoSchema, userUpdateInfoSchema } from "@/schemas";
+import { roleCreateSchema, RoleCreateSchema } from "@/schemas";
+import { updateRole } from "@/actions";
 import { startTransition, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useUpdateUserModal } from "@/hooks/use-user-modal";
-import { updateUserInfo } from "@/actions";
+import { useUpdateRoleModal } from "@/hooks/use-role-modal";
 
-export const UpdateUserInfoModal = () => {
+export const UpdateRoleModal = () => {
   const [loading, setLoading] = useState(false);
-  const useModal = useUpdateUserModal();
+  const useModal = useUpdateRoleModal();
   const router = useRouter();
 
-  const form = useForm<UserUpdateInfoSchema>({
-    resolver: zodResolver(userUpdateInfoSchema),
+  const form = useForm<RoleCreateSchema>({
+    resolver: zodResolver(roleCreateSchema),
     defaultValues: {
-      id: useModal.user?.id,
-      fullName: useModal.user?.fullName,
-      email: useModal.user?.email,
+      name: useModal.role.name,
+      description: useModal.role.description,
     },
   });
 
-  const onSubmit = async (values: UserUpdateInfoSchema) => {
+  const onSubmit = async (values: RoleCreateSchema) => {
     setLoading(true);
     startTransition(() => {
-      updateUserInfo(values).then((data) => {
+      updateRole(values, useModal.id).then((data) => {
         if (data?.error) {
           form.reset();
           useModal.onClose();
@@ -61,31 +59,31 @@ export const UpdateUserInfoModal = () => {
   };
 
   useEffect(() => {
-    if (useModal.user) {
-      form.reset(useModal.user);
+    if (useModal.role) {
+      form.reset(useModal.role);
     }
-  }, [useModal.user]);
+  }, [useModal.role]);
 
   return (
     <Modal
-      title="Update user info"
-      description="Update existing user account informations"
+      title="Update role info"
+      description="Update existing role informations."
       isOpen={useModal.isOpen}
       onClose={useModal.onClose}
-      size="w-[500px]"
+      size="w-[450px]"
     >
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-2">
             <FormField
               control={form.control}
-              name="fullName"
+              name="name"
               render={({ field }) => (
-                <FormItem className="mb-2">
-                  <FormLabel className="text-xs">Fullname</FormLabel>
+                <FormItem className="mb-5">
+                  <FormLabel className="text-xs">Role Name</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Your name"
+                      placeholder="Enter role name"
                       {...field}
                       className="shadow-none py-3 rounded"
                     />
@@ -96,14 +94,13 @@ export const UpdateUserInfoModal = () => {
             />
             <FormField
               control={form.control}
-              name="email"
+              name="description"
               render={({ field }) => (
                 <FormItem className="mb-2">
-                  <FormLabel className="text-xs">Email</FormLabel>
+                  <FormLabel className="text-xs">Description</FormLabel>
                   <FormControl>
                     <Input
-                      type="email"
-                      placeholder="Your email"
+                      placeholder="Enter role description"
                       {...field}
                       className="shadow-none py-3 rounded"
                     />
@@ -139,4 +136,4 @@ export const UpdateUserInfoModal = () => {
   );
 };
 
-export default UpdateUserInfoModal;
+export default UpdateRoleModal;

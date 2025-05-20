@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 import { useResetPasswordUserModal } from "@/hooks/use-user-modal";
 import { resetUserPassword } from "@/actions";
 
-const ResetPasswordUserModal = () => {
+export const ResetPasswordUserModal = () => {
   const [loading, setLoading] = useState(false);
   const useModal = useResetPasswordUserModal();
   const router = useRouter();
@@ -31,15 +31,15 @@ const ResetPasswordUserModal = () => {
   const form = useForm<UserResetPasswordSchema>({
     resolver: zodResolver(userResetPasswordSchema),
     defaultValues: {
-      newPassword:"",
-      confirmPassword:""
+      newPassword: "",
+      confirmPassword: "",
     },
   });
 
   const onSubmit = async (values: UserResetPasswordSchema) => {
     setLoading(true);
     startTransition(() => {
-      resetUserPassword(values,useModal.id).then((data) => {
+      resetUserPassword(values, useModal.id).then((data) => {
         if (data?.error) {
           form.reset();
           useModal.onClose();
@@ -58,8 +58,6 @@ const ResetPasswordUserModal = () => {
       });
     });
   };
-
-
 
   return (
     <Modal
@@ -117,7 +115,7 @@ const ResetPasswordUserModal = () => {
                 {loading ? (
                   <>
                     <Loader2 className=" size-3.5 animate-spin" />
-                    <span className="text-xs">Saving...</span>
+                    <span className="text-xs">Reseting...</span>
                   </>
                 ) : (
                   <>
