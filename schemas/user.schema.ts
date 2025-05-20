@@ -37,3 +37,23 @@ export const userUpdateStatusSchema = z.object({
 });
 
 export type UserUpdateStatusSchema = z.infer<typeof userUpdateStatusSchema>;
+
+export const userResetPasswordSchema = z.object({
+  newPassword: z
+    .string({ required_error: "Password is required" })
+    .min(1, "Password is required")
+    .min(8, "Password must be more than 8 characters")
+    .max(32, "Password must be less than 32 characters"),
+  confirmPassword: z
+    .string({ required_error: "Password is required" })
+    .min(1, "Password is required")
+    .min(8, "Password must be more than 8 characters")
+    .max(32, "Password must be less than 32 characters"),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  message: "Confirm passwords don't match",
+  path: ["confirmPassword"],
+});
+
+export type UserResetPasswordSchema = z.infer<typeof userResetPasswordSchema>;
+
+

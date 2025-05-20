@@ -15,35 +15,34 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 
 import { Button } from "@/components/ui/button";
-import { Loader2, Save } from "lucide-react";
-import { UserUpdateInfoSchema, userUpdateInfoSchema } from "@/schemas";
+import { KeyRound, Loader2, Save } from "lucide-react";
+import { userResetPasswordSchema, UserResetPasswordSchema } from "@/schemas";
 import { startTransition, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useUpdateUserModal } from "@/hooks/use-modal";
-import { updateUserInfo } from "@/actions";
+import { useResetPasswordUserModal } from "@/hooks/use-modal";
+import { resetUserPassword } from "@/actions";
 
-const UpdateUserInfoModal = () => {
+const ResetPasswordUserModal = () => {
   const [loading, setLoading] = useState(false);
-  const updateUserModal = useUpdateUserModal();
+  const resetPasswordUser = useResetPasswordUserModal();
   const router = useRouter();
 
-  const form = useForm<UserUpdateInfoSchema>({
-    resolver: zodResolver(userUpdateInfoSchema),
+  const form = useForm<UserResetPasswordSchema>({
+    resolver: zodResolver(userResetPasswordSchema),
     defaultValues: {
-      id: updateUserModal.user?.id,
-      fullName: updateUserModal.user?.fullName,
-      email: updateUserModal.user?.email,
+      newPassword:"",
+      confirmPassword:""
     },
   });
 
-  const onSubmit = async (values: UserUpdateInfoSchema) => {
+  const onSubmit = async (values: UserResetPasswordSchema) => {
     setLoading(true);
     startTransition(() => {
-      updateUserInfo(values).then((data) => {
+      resetUserPassword(values,resetPasswordUser.id).then((data) => {
         if (data?.error) {
           form.reset();
-          updateUserModal.onClose();
+          resetPasswordUser.onClose();
           toast.error("Error", {
             description: data?.error,
           });
@@ -52,7 +51,7 @@ const UpdateUserInfoModal = () => {
         if (data?.success) {
           form.reset();
           router.refresh();
-          updateUserModal.onClose();
+          resetPasswordUser.onClose();
           toast.success("Success", { description: data?.success });
         }
         setLoading(false);
@@ -60,32 +59,29 @@ const UpdateUserInfoModal = () => {
     });
   };
 
-  useEffect(() => {
-    if (updateUserModal.user) {
-      form.reset(updateUserModal.user);
-    }
-  }, [updateUserModal.user]);
+
 
   return (
     <Modal
-      title="Update user info"
-      description="Update existing user account informations"
-      isOpen={updateUserModal.isOpen}
-      onClose={updateUserModal.onClose}
+      title="Reset user password"
+      description="Reset password of user account"
+      isOpen={resetPasswordUser.isOpen}
+      onClose={resetPasswordUser.onClose}
       size="w-[500px]"
     >
       <div>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-2">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
               control={form.control}
-              name="fullName"
+              name="newPassword"
               render={({ field }) => (
-                <FormItem className="mb-2">
-                  <FormLabel className="text-xs">Fullname</FormLabel>
+                <FormItem className="mb-4">
+                  <FormLabel className="text-xs">New Password</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Your name"
+                      type="password"
+                      placeholder="Your new password"
                       {...field}
                       className="shadow-none py-3 rounded"
                     />
@@ -96,14 +92,14 @@ const UpdateUserInfoModal = () => {
             />
             <FormField
               control={form.control}
-              name="email"
+              name="confirmPassword"
               render={({ field }) => (
                 <FormItem className="mb-2">
-                  <FormLabel className="text-xs">Email</FormLabel>
+                  <FormLabel className="text-xs">Confirm Password</FormLabel>
                   <FormControl>
                     <Input
-                      type="email"
-                      placeholder="Your email"
+                      type="password"
+                      placeholder="Confirm password"
                       {...field}
                       className="shadow-none py-3 rounded"
                     />
@@ -112,7 +108,6 @@ const UpdateUserInfoModal = () => {
                 </FormItem>
               )}
             />
-
             <div className="mt-5 w-full flex">
               <Button
                 type="submit"
@@ -126,8 +121,8 @@ const UpdateUserInfoModal = () => {
                   </>
                 ) : (
                   <>
-                    <Save className=" size-3.5" />
-                    <span className="text-xs">Update user</span>
+                    <KeyRound className=" size-3.5" />
+                    <span className="text-xs">Reset password</span>
                   </>
                 )}
               </Button>
@@ -139,4 +134,4 @@ const UpdateUserInfoModal = () => {
   );
 };
 
-export default UpdateUserInfoModal;
+export default ResetPasswordUserModal;

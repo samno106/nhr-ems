@@ -118,7 +118,7 @@ const UpdateUserStatusModal = () => {
                 {loading ? (
                   <>
                     <Loader2 className=" size-3.5 animate-spin" />
-                    <span className="text-xs">Changing...</span>
+                    <span className="text-xs">Saving...</span>
                   </>
                 ) : (
                   <>

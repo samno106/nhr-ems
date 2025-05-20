@@ -26,6 +26,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  useDeleteUserModal,
+  useResetPasswordUserModal,
   useUpdateUserModal,
   useUpdateUserStatusModal,
 } from "@/hooks/use-modal";
@@ -33,6 +35,9 @@ import {
 export const UserProfile = ({ user }: { user: UserType }) => {
   const updateUserModal = useUpdateUserModal();
   const updateUserStatusModal = useUpdateUserStatusModal();
+  const resetPasswordUserModal = useResetPasswordUserModal();
+  const deleteUserModal = useDeleteUserModal();
+                
 
   return (
     <div className=" flex items-start space-x-4 px-2">
@@ -95,12 +100,12 @@ export const UserProfile = ({ user }: { user: UserType }) => {
               <CircleFadingPlusIcon className="size-3.5 text-gray-700" />
               <span>Change Status</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem className="cursor-pointer" onClick={()=>resetPasswordUserModal.onOpen(user.id)}>
               <KeyRound className="size-3.5 text-gray-700" />
               <span>Reset Password</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-500 cursor-pointer">
+            <DropdownMenuItem className="text-red-500 cursor-pointer" onClick={()=>deleteUserModal.onOpen(user.id)}>
               <Trash className="size-3.5 text-red-500" />
               <span className="text-red-500">Delete User</span>
             </DropdownMenuItem>

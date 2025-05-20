@@ -175,7 +175,7 @@ const CreateUserModal = () => {
                 { loading?(
                    <>
                    <Loader2 className=" size-3.5 animate-spin"/>
-                   <span className="text-xs">Creating...</span>
+                   <span className="text-xs">Saving...</span>
                    </>
 
                 ):( <>

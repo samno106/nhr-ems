@@ -1,6 +1,6 @@
 import { UserUpdateInfoSchema, UserUpdateStatusSchema } from "@/schemas";
 import { RoleType } from "@/types/roles-model";
-import { UserType } from "@/types/users-model";
+
 import { create } from "zustand";
 
 //global use hook
@@ -18,15 +18,15 @@ export const useModal = create<useModalStore>((set) => ({
 
 interface useUpdateModalStore {
   isOpen: boolean;
-  id: String;
-  onOpen: (id: String) => void;
+  id: string;
+  onOpen: (id: string) => void;
   onClose: () => void;
 }
 
-export const useUpdateModal = create<useUpdateModalStore>((set) => ({
+export const useDeleteUserModal = create<useUpdateModalStore>((set) => ({
   isOpen: false,
   id: "",
-  onOpen: (data: String) => set({ isOpen: true, id: data }),
+  onOpen: (data: string) => set({ isOpen: true, id: data }),
   onClose: () => set({ isOpen: false }),
 }));
 
@@ -71,6 +71,15 @@ export const useUpdateUserStatusModal = create<useUpdateUserStatusModalStore>(
     isOpen: false,
     user: {},
     onOpen: (data: UserUpdateStatusSchema) => set({ isOpen: true, user: data }),
+    onClose: () => set({ isOpen: false }),
+  })
+);
+
+export const useResetPasswordUserModal = create<useUpdateModalStore>(
+  (set) => ({
+    isOpen: false,
+    id: "",
+    onOpen: (data: string) => set({ isOpen: true, id: data }),
     onClose: () => set({ isOpen: false }),
   })
 );
