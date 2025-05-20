@@ -16,6 +16,7 @@ export async function createRole(schema: RoleCreateSchema) {
       data: {
         name: schema.name,
         description:schema.description,
+        status:"User"
       },
     });
 

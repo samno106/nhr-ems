@@ -66,11 +66,11 @@ const CreateRoleModal = () => {
 
   return (
     <Modal
-      title="Create new role"
+      title="Create New Role"
       description="Create a new role with custome permissions. You can assign this role to users later."
       isOpen={useModal.isOpen}
       onClose={useModal.onClose}
-      size="w-[400px]"
+      size="w-[450px]"
     >
       <div>
         <Form {...form}>
@@ -79,7 +79,7 @@ const CreateRoleModal = () => {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem className="mb-2">
+                <FormItem className="mb-5">
                   <FormLabel className="text-xs">Role Name</FormLabel>
                   <FormControl>
                     <Input
@@ -125,7 +125,7 @@ const CreateRoleModal = () => {
 
                 ):( <>
                 <Save className=" size-3.5"/>
-                <span className="text-xs">Create role</span>
+                <span className="text-xs">Create Role</span>
                 </>)}
                
               </Button>
