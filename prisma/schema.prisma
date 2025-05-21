@@ -67,6 +67,9 @@ model RolePermission{
   permissionId  String
   assignedAt    DateTime @default(now())
   assignedBy    String?
+
+  @@unique([roleId, permissionId])
+  @@index([roleId, permissionId])
 }
 
 

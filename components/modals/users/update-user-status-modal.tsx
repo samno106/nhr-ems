@@ -85,7 +85,7 @@ export const UpdateUserStatusModal = () => {
               control={form.control}
               name="status"
               render={({ field }) => (
-                <FormItem className="mb-2">
+                <FormItem className="mb-4">
                   <FormLabel className="text-xs">Status</FormLabel>
                   <Select
                     onValueChange={field.onChange}

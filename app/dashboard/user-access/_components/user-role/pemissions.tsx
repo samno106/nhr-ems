@@ -20,7 +20,7 @@ import {
   useRoleModal,
   useUpdateRoleModal,
 } from "@/hooks/use-role-modal";
-import { useEffect } from "react";
+import { usePermissionModal } from "@/hooks/use-permission-modal";
 
 export const PermissionsTab = ({
   roles,
@@ -38,6 +38,7 @@ export const PermissionsTab = ({
   const useCreateModal = useRoleModal();
   const useUpateModal = useUpdateRoleModal();
   const useDeleteModal = useDeleteRoleModal();
+  const usePermssionCreateModal = usePermissionModal();
 
   const onSelectedRole = (id: string) => {
     handleSelectedRole(id);
@@ -78,7 +79,7 @@ export const PermissionsTab = ({
               {role?.description ?? "--/--"}
             </p>
             <Badge variant="outline" className="mt-2.5">
-              14 permissions
+              {role?.permissions.length ?? 0} permissions
             </Badge>
           </div>
           <div className="text-right w-20 ">
@@ -120,14 +121,23 @@ export const PermissionsTab = ({
         <div className="px-2 pt-2 border-t">
           <div className=" flex justify-between items-center px-1 py-2">
             <h4 className="text-sm font-semibold ">Permissions</h4>
-            <Button size="sm" variant="outline">
+            <Button
+              size="sm"
+              variant="outline"
+              className=" cursor-pointer"
+              onClick={() => usePermssionCreateModal.onOpen(modules)}
+            >
               <PlusCircle className=" size-3 " />
               <span className="text-xs">New permission</span>
             </Button>
           </div>
           <ScrollArea className="h-[295px]">
             <div className="py-2">
-              <PermissionList modules={modules} />
+              <PermissionList
+                modules={modules}
+                permissions={role?.permissions}
+                roleId={role.id}
+              />
             </div>
           </ScrollArea>
           <div className="py-2">

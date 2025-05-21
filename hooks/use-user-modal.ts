@@ -75,11 +75,28 @@ export const useUpdateUserStatusModal = create<useUpdateUserStatusModalStore>(
   })
 );
 
-export const useResetPasswordUserModal = create<useUpdateModalStore>(
+export const useResetPasswordUserModal = create<useUpdateModalStore>((set) => ({
+  isOpen: false,
+  id: "",
+  onOpen: (data: string) => set({ isOpen: true, id: data }),
+  onClose: () => set({ isOpen: false }),
+}));
+
+interface useChangeUserRoleModalStore {
+  isOpen: boolean;
+  id: string;
+  roleId: string;
+  onOpen: (id: string, roleId: string) => void;
+  onClose: () => void;
+}
+
+export const useChangeUserRoleModal = create<useChangeUserRoleModalStore>(
   (set) => ({
     isOpen: false,
     id: "",
-    onOpen: (data: string) => set({ isOpen: true, id: data }),
+    roleId: "",
+    onOpen: (id: string, roleId: string) =>
+      set({ isOpen: true, id: id, roleId: roleId }),
     onClose: () => set({ isOpen: false }),
   })
 );

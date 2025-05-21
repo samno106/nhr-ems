@@ -4,7 +4,15 @@ import { prisma } from "@/lib/prisma";
 
 export default async function UserAccessPage() {
   const users = await prisma.user.findMany();
-  const roles = await prisma.role.findMany();
+  const roles = await prisma.role.findMany({
+    include: {
+      permissions: {
+        include: {
+          permission: true,
+        },
+      },
+    },
+  });
   const modules = await prisma.module.findMany({
     include: { permissions: true },
   });

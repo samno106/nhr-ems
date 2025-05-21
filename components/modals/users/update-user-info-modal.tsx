@@ -81,7 +81,7 @@ export const UpdateUserInfoModal = () => {
               control={form.control}
               name="fullName"
               render={({ field }) => (
-                <FormItem className="mb-2">
+                <FormItem className="mb-4">
                   <FormLabel className="text-xs">Fullname</FormLabel>
                   <FormControl>
                     <Input
@@ -98,7 +98,7 @@ export const UpdateUserInfoModal = () => {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem className="mb-2">
+                <FormItem className="mb-4">
                   <FormLabel className="text-xs">Email</FormLabel>
                   <FormControl>
                     <Input

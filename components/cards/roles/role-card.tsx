@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { RoleType } from "@/types/roles-model";
 import { CheckCircle2, Circle } from "lucide-react";
@@ -12,7 +13,7 @@ export const RoleCard = ({
   return (
     <div
       className={cn(
-        "p-3 border border-neutral-300 rounded-md hover:bg-blue-50 hover:border-blue-200 cursor-pointer",
+        "p-3 border border-neutral-300 rounded-md hover:bg-blue-50 hover:border-blue-200",
         selected && "bg-blue-50 border-blue-400"
       )}
     >
@@ -24,7 +25,7 @@ export const RoleCard = ({
           <Circle className=" size-4 text-gray-400" />
         )}
       </div>
-      <p className="text-xs text-gray-500 mt-2 font-[400]">
+      <p className="text-xs text-gray-500 mt-2 font-[400] truncate">
         {role?.description}
       </p>
     </div>
