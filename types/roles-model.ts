@@ -1,4 +1,4 @@
-import { PermissionType, RolePermissionsModel } from "./permissions-model";
+import { RolePermissionsModel } from "./permissions-model";
 
 export type RoleType = {
   id: string;

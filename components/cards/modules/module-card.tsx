@@ -36,6 +36,11 @@ export const ModuleCard = ({
             desc={permission.description}
             roleId={roleId}
             permissionId={permission.id}
+            rolePermissionId={
+              permissions.filter(
+                (pers) => pers.permissionId === permission.id
+              )[0]?.id
+            }
             selected={
               permissions.filter((pers) => pers.permissionId === permission.id)
                 .length > 0

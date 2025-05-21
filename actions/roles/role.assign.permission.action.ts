@@ -28,3 +28,20 @@ export async function assignPermission(schema: RoleAssignPermissionSchema) {
     return { error: "Something went wrong. Please try again." };
   }
 }
+
+export async function unAssignPermission(id: string) {
+  if (id === "") {
+    return { error: "Invalid form data" };
+  }
+
+  try {
+    await prisma.rolePermission.delete({
+      where: { id: id },
+    });
+
+    await prisma.$disconnect();
+    return { success: "Permission removed from role successfully" };
+  } catch (error) {
+    return { error: "Something went wrong. Please try again." };
+  }
+}

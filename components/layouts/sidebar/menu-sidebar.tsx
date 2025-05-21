@@ -16,6 +16,8 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
+import useAuthStore from "@/stores/auth.store";
+import { RoleType } from "@/types/roles-model";
 import {
   Building,
   ChartAreaIcon,
@@ -102,10 +104,13 @@ const menus = [
     ],
   },
 ];
-export const MenuSidebar = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-
+export const MenuSidebar = ({ roles }: { roles: RoleType[] }) => {
   const pathName = usePathname();
+
+  const session = useAuthStore((state) => state.session);
+  const role = roles.filter((role) => role.id === session.user.roleId)[0];
+
+  console.log("role", role.permissions.length);
 
   return (
     <SidebarContent className="bg-white">

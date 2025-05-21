@@ -8,6 +8,9 @@ export { changeUserRole } from "./users/user-change.role.action";
 //role
 export { createRole } from "./roles/role.create.action";
 export { updateRole } from "./roles/role.update.action";
-export { assignPermission } from "./roles/role.assign.permission.action";
+export {
+  assignPermission,
+  unAssignPermission,
+} from "./roles/role.assign.permission.action";
 //permission
 export { createPermission } from "./permissions/permission.create.action";

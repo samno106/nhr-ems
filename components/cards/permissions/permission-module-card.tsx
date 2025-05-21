@@ -1,6 +1,6 @@
 "use client";
 
-import { assignPermission } from "@/actions";
+import { assignPermission, unAssignPermission } from "@/actions";
 import { CheckCircle2, LoaderIcon, XCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -12,12 +12,14 @@ export const PermissionModuleCard = ({
   desc,
   roleId,
   permissionId,
+  rolePermissionId,
   selected,
 }: {
   name: string;
   desc: string;
   roleId: string;
   permissionId: string;
+  rolePermissionId: string;
   selected: boolean;
 }) => {
   const { data: session, status } = useSession();
@@ -49,9 +51,32 @@ export const PermissionModuleCard = ({
     });
   };
 
+  const onUnAssignPermission = async (id: string) => {
+    setLoading(true);
+    startTransition(() => {
+      unAssignPermission(id).then((data) => {
+        if (data?.error) {
+          toast.error("Error", {
+            description: data?.error,
+          });
+        }
+
+        if (data?.success) {
+          router.refresh();
+          toast.success("Success", { description: data?.success });
+        }
+        setLoading(false);
+      });
+    });
+  };
+
   return (
     <div
-      onClick={() => onAssignPermission(roleId, permissionId)}
+      onClick={
+        selected
+          ? () => onUnAssignPermission(rolePermissionId)
+          : () => onAssignPermission(roleId, permissionId)
+      }
       className=" cursor-pointer px-2 py-1.5 bg-blue-50 rounded flex justify-between items-center"
     >
       <div>
