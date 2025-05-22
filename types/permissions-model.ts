@@ -1,3 +1,5 @@
+import { ModuleModel, ModuleType } from "./modules-model";
+
 export type PermissionType = {
   id: string;
   name: string;
@@ -5,6 +7,7 @@ export type PermissionType = {
   slug: string;
   description: string;
   status: boolean;
+  module:ModuleModel,
   createdAt: Date;
   updatedAt: Date;
 };
@@ -17,3 +20,4 @@ export interface RolePermissionsModel {
   assignedAt: Date;
   assignedBy: string | null;
 }
+

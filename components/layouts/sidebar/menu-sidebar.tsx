@@ -15,6 +15,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import useCheckPermission from "@/hooks/use-check-permission";
 import { cn } from "@/lib/utils";
 import useAuthStore from "@/stores/auth.store";
 import { RoleType } from "@/types/roles-model";
@@ -31,7 +32,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 const menus = [
   {
     title: "Overview",
@@ -50,6 +51,7 @@ const menus = [
         title: "Employees",
         url: "/dashboard/employees",
         icon: UsersRound,
+        access:"view-employees",
         submenus: [
           {
             title: "Dashboard",
@@ -67,6 +69,7 @@ const menus = [
         title: "Buildings",
         url: "/dashboard/buildings",
         icon: Building,
+        access:"view-buildings",
         submenus: [
           {
             title: "Dashboard",
@@ -85,44 +88,50 @@ const menus = [
         title: "Reports",
         url: "/dashboard/reports",
         icon: ChartAreaIcon,
+        access:"",
       },
       {
         title: "E-Forms",
         url: "/dashboard/e-forms",
         icon: Printer,
+        access:"",
       },
       {
         title: "Permission Control",
         url: "/dashboard/user-access",
         icon: ShieldUser,
+        access:"",
       },
       {
         title: "Settings",
         url: "/dashboard/settings",
         icon: Settings,
+        access:"",
       },
     ],
   },
 ];
-export const MenuSidebar = ({ roles }: { roles: RoleType[] }) => {
+export const MenuSidebar = () => {
   const pathName = usePathname();
 
-  const session = useAuthStore((state) => state.session);
-  const role = roles.filter((role) => role.id === session.user.roleId)[0];
+  const { checked } = useCheckPermission();
 
-  console.log("role", role.permissions.length);
+  useEffect(()=>{
+    checked("","")
+  },[])
 
   return (
     <SidebarContent className="bg-white">
       {menus.map((menu, index) => (
         <SidebarGroup key={index} className="py-1">
           <SidebarGroupLabel className="text-sm font-semibold text-gray-700 mb-2">
-            {menu.title}
+            {menu.title} 
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="px-2.5 space-y-1.5">
               {menu.items.map((item, i) =>
                 item.submenus ? (
+                 
                   <Collapsible asChild key={i} className="group/collapsible">
                     <SidebarMenuItem>
                       <CollapsibleTrigger asChild>
@@ -139,7 +148,7 @@ export const MenuSidebar = ({ roles }: { roles: RoleType[] }) => {
                           <div>
                             <item.icon className=" size-3" strokeWidth={2.5} />
                           </div>
-                          <span>{item.title}</span>
+                          <span>{item.title} </span>
                           <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
@@ -166,7 +175,7 @@ export const MenuSidebar = ({ roles }: { roles: RoleType[] }) => {
                                       strokeWidth={2.5}
                                     />
                                   </div>
-                                  <span>{submneu.title}</span>
+                                  <span>{submneu.title} </span>
                                 </Link>
                               </SidebarMenuButton>
                             </SidebarMenuSubItem>
@@ -193,7 +202,7 @@ export const MenuSidebar = ({ roles }: { roles: RoleType[] }) => {
                         <div>
                           <item.icon className=" size-3" strokeWidth={2.5} />
                         </div>
-                        <span>{item.title}</span>
+                        <span>{item.title} </span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

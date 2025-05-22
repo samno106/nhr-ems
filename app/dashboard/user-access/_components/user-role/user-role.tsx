@@ -1,11 +1,10 @@
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ShieldCheckIcon, ShieldUserIcon, UserLockIcon } from "lucide-react";
+import { ShieldCheckIcon, ShieldUserIcon } from "lucide-react";
 import RolesTab from "./roles";
 import PermissionsTab from "./pemissions";
-import { UserModel, UserType } from "@/types/users-model";
+import { UserType } from "@/types/users-model";
 import { RoleType } from "@/types/roles-model";
-import { useState } from "react";
 import { ModuleType } from "@/types/modules-model";
 
 export const UserRole = ({
@@ -23,6 +22,7 @@ export const UserRole = ({
   roleSelected: string;
   handleSelectedRole;
 }) => {
+
   return (
     <div className="w-[65%] min-h-svh max-h-svh border border-neutral-200 rounded  pt-3">
       {/* tab */}
@@ -40,6 +40,7 @@ export const UserRole = ({
           </TabsList>
           <div className="pt-2 w-full">
             <TabsContent value="user_role">
+             
               <RolesTab user={user} roles={roles} />
             </TabsContent>
             <TabsContent value="role_permission">

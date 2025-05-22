@@ -6,6 +6,7 @@ export { resetUserPassword } from "./users/user.reset.password.action";
 export { deleteUser } from "./users/user.delete.action";
 export { changeUserRole } from "./users/user-change.role.action";
 //role
+export { getRole } from "./roles/role.action";
 export { createRole } from "./roles/role.create.action";
 export { updateRole } from "./roles/role.update.action";
 export {

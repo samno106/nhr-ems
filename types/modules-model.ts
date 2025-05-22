@@ -8,3 +8,11 @@ export type ModuleType = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type ModuleModel = {
+  id: string;
+  name: string;
+  status: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};

@@ -6,15 +6,6 @@ import { prisma } from "@/lib/prisma";
 import useAuthStore from "@/stores/auth.store";
 
 export const AppSidebar = async () => {
-  const roles = await prisma.role.findMany({
-    include: {
-      permissions: {
-        include: {
-          permission: true,
-        },
-      },
-    },
-  });
 
   return (
     <Sidebar collapsible="icon" className="bg-white">
@@ -23,7 +14,7 @@ export const AppSidebar = async () => {
           <DashboardLogo />
         </div>
       </SidebarHeader>
-      <MenuSidebar roles={roles} />
+      <MenuSidebar />
       <SidebarFooter className="bg-white">
         <div className=" border-t pt-2">
           <ProfileSidebar />

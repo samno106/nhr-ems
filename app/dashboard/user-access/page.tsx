@@ -16,6 +16,7 @@ export default async function UserAccessPage() {
   const modules = await prisma.module.findMany({
     include: { permissions: true },
   });
+  
 
   return (
     <div className="min-h-screen h-auto px-10 mb-10">

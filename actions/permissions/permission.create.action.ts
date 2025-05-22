@@ -2,6 +2,7 @@
 
 import { hashedPassword } from "@/lib/password.bcrypt";
 import { prisma } from "@/lib/prisma";
+import { slugify } from "@/lib/slugify";
 import { createPermissionSchema, CreatePermissionSchema } from "@/schemas";
 
 export async function createPermission(schema: CreatePermissionSchema) {
@@ -15,6 +16,7 @@ export async function createPermission(schema: CreatePermissionSchema) {
     await prisma.permission.create({
       data: {
         name: schema.name,
+        slug:slugify(schema.name),
         description: schema.description,
         moduleId: schema.moduleId,
       },
