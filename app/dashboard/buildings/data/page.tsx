@@ -1,15 +1,14 @@
 import { AppHero } from "@/components/layouts";
 import BuildingsClient from "./_components/client";
 
-import useCheckPermission, { checkPermission } from "@/hooks/use-check-permission";
+import { useCheck } from "@/hooks/use-check";
+import AccessDeniedPage from "@/components/layouts/page-error/403";
 
 export default async function DataPage() {
+  const checked = await useCheck("Buildings", "view-buildings");
 
-  const checked =  await checkPermission("Buildings","view-buildings");
- 
-  console.log("checked   ", checked)
-  if(!checked){
-    return "Not Allow this page"
+  if (!checked) {
+    return <AccessDeniedPage />;
   }
 
   return (
