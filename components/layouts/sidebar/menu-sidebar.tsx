@@ -154,9 +154,11 @@ const menus = [
   },
 ];
 export const MenuSidebar = () => {
+  
   const pathName = usePathname();
   const [role, setRole] = useState<RoleType>(null);
   const usecan = useCan();
+
   useEffect(() => {
     const getData = async () => {
       const role = await getRole();

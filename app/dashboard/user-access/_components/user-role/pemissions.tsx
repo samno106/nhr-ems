@@ -118,10 +118,10 @@ export const PermissionsTab = ({
         </div>
         {/* header */}
         {/* list permission */}
-        <div className="px-2 pt-2 border-t">
-          <div className=" flex justify-between items-center px-1 py-2">
+        <div className=" border-t">
+          <div className=" flex justify-between items-center px-1 py-2 bg-neutral-50 border-b border-neutral-100">
             <h4 className="text-sm font-semibold ">Permissions</h4>
-            <Button
+            {/* <Button
               size="sm"
               variant="outline"
               className=" cursor-pointer"
@@ -129,10 +129,10 @@ export const PermissionsTab = ({
             >
               <PlusCircle className=" size-3 " />
               <span className="text-xs">New permission</span>
-            </Button>
+            </Button> */}
           </div>
-          <ScrollArea className="h-[295px]">
-            <div className="py-2">
+          <ScrollArea className="h-[240px]">
+            <div className="py-1 px-2">
               <PermissionList
                 modules={modules}
                 permissions={role?.permissions}
@@ -140,7 +140,7 @@ export const PermissionsTab = ({
               />
             </div>
           </ScrollArea>
-          <div className="py-2">
+          <div className="p-2">
             <RoleInfoCard
               title={"About Role"}
               desc={
