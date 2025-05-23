@@ -1,23 +1,20 @@
-import { permissions } from './../../prisma/seed/data';
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { getSession } from "next-auth/react";
 
-export async function getPermission() {
-  const session = getSession();
+export async function getPermissionByRole(roleId: string) {
   try {
     const permissions = await prisma.permission.findMany({
-    where:{
-        roles:{
-            some:{
-                roleId: (await session)?.user?.roleId
-            }
-        }
+      where: {
+        roles: {
+          some: {
+            roleId: roleId,
+          },
         },
-        select:{
-            slug:true
-        }
+      },
+      select: {
+        slug: true,
+      },
     });
 
     await prisma.$disconnect();

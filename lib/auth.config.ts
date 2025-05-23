@@ -28,7 +28,10 @@ export const authConfig = {
           throw new Error("Your email or password is incorrect.");
         }
 
-        const isPasswordValid = await comparePassword(credentials.password, user.password);
+        const isPasswordValid = await comparePassword(
+          credentials.password,
+          user.password
+        );
         if (!isPasswordValid) {
           throw new Error("Your email or password is incorrect.");
         }

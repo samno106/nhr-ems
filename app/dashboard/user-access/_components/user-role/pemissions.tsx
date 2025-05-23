@@ -119,7 +119,7 @@ export const PermissionsTab = ({
         {/* header */}
         {/* list permission */}
         <div className=" border-t">
-          <div className=" flex justify-between items-center px-1 py-2 bg-neutral-50 border-b border-neutral-100">
+          <div className=" flex justify-between items-center px-3 py-2 bg-neutral-50 border-b border-neutral-100">
             <h4 className="text-sm font-semibold ">Permissions</h4>
             {/* <Button
               size="sm"
@@ -131,7 +131,7 @@ export const PermissionsTab = ({
               <span className="text-xs">New permission</span>
             </Button> */}
           </div>
-          <ScrollArea className="h-[240px]">
+          <ScrollArea className="h-[323px]">
             <div className="py-1 px-2">
               <PermissionList
                 modules={modules}

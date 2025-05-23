@@ -1,14 +1,35 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { getSession } from "next-auth/react";
 
-export async function getRole() {
-  const session = getSession();
+export async function getRoles() {
+  try {
+    const roles = await prisma.role.findMany({
+      include: {
+        permissions: {
+          include: {
+            permission: {
+              include: {
+                module: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    await prisma.$disconnect();
+    return { roles: roles };
+  } catch (error) {
+    return { error: "Something went wrong. Please try again." };
+  }
+}
+
+export async function getRoleById(id: string) {
   try {
     const role = await prisma.role.findFirst({
       where: {
-        id: (await session)?.user?.roleId,
+        id: id,
       },
       include: {
         permissions: {

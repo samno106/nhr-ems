@@ -1,5 +1,5 @@
 "use client";
-import { getRole } from "@/actions";
+import { getRoleById } from "@/actions";
 import {
   Collapsible,
   CollapsibleContent,
@@ -16,6 +16,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
 import useCan from "@/hooks/use-can";
 import { cn } from "@/lib/utils";
 import { RoleType } from "@/types/roles-model";
@@ -35,6 +36,7 @@ import {
   UsersRound,
   Workflow,
 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -154,19 +156,52 @@ const menus = [
   },
 ];
 export const MenuSidebar = () => {
-  
+  const { data: session, status } = useSession();
   const pathName = usePathname();
   const [role, setRole] = useState<RoleType>(null);
   const usecan = useCan();
 
   useEffect(() => {
+    console.log(
+      "roleId==>",
+      status === "authenticated" && session?.user?.roleId
+    );
     const getData = async () => {
-      const role = await getRole();
+      const role = await getRoleById(session?.user?.roleId);
+      console.log("My role=>", role);
       setRole(role.role);
     };
 
     getData();
-  }, []);
+  }, [session]);
+
+  if (status === "loading") {
+    return (
+      <SidebarContent className="bg-white">
+        <SidebarGroup className="py-1 px-5">
+          <SidebarGroupContent>
+            <SidebarMenu className=" space-y-5">
+              <SidebarMenuItem>
+                <Skeleton className="h-5 w-[50%]" />
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Skeleton className="h-8 w-full" />
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Skeleton className="h-8 w-full" />
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Skeleton className="h-8 w-full" />
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Skeleton className="h-8 w-full" />
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    );
+  }
 
   return (
     <SidebarContent className="bg-white">

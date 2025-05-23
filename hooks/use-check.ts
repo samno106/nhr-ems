@@ -1,6 +1,4 @@
 import { getRole } from "@/actions";
-import { RoleType } from "@/types/roles-model";
-
 export const useCheck = async (module: string, permission: string) => {
   const { role } = await getRole();
 
