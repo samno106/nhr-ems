@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronRight, KeyRound, Loader2, User2 } from "lucide-react";
+import { ChevronRight, KeyRound, Loader, Loader2, User2 } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -118,7 +118,7 @@ export const SiginClient = () => {
               )}
 
               {loading ? (
-                <Loader2 className=" size-5 mr-2 animate-spin" />
+                <Loader className=" size-5 mr-2 animate-spin" />
               ) : (
                 <ChevronRight className=" size-5 mr-2" />
               )}

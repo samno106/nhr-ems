@@ -1,15 +1,7 @@
 import { AppHero } from "@/components/layouts";
 import BuildingsClient from "./_components/client";
 
-import { useCheck } from "@/hooks/use-check";
-import AccessDeniedPage from "@/components/layouts/page-error/403";
-
-export default async function DataPage() {
-  const checked = await useCheck("Buildings", "view-buildings");
-
-  if (!checked) {
-    return <AccessDeniedPage />;
-  }
+export default async function BuildingDataPage() {
 
   return (
     <div className="min-h-screen h-auto px-10">

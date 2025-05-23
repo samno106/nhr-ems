@@ -71,10 +71,10 @@ const menus = [
         ],
       },
       {
-        title: "Workflows",
-        url: "/dashboard/workflows",
+        title: "Workflow",
+        url: "/dashboard/workflow",
         icon: Workflow,
-        access: "view-workflows",
+        access: "view-workflow",
       },
       {
         title: "Buildings",
@@ -105,13 +105,13 @@ const menus = [
         title: "E-Forms",
         url: "/dashboard/e-forms",
         icon: Printer,
-        access: "view-e-form",
+        access: "view-e-forms",
       },
       {
         title: "VIP Managements",
         url: "/dashboard/vip",
         icon: CrownIcon,
-        access: "view-vip-management",
+        access: "view-vip",
         submenus: [
           {
             title: "Overview",

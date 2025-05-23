@@ -15,3 +15,4 @@ export {
 } from "./roles/role.assign.permission.action";
 //permission
 export { createPermission } from "./permissions/permission.create.action";
+export {getPermission} from "./permissions/permission.action"

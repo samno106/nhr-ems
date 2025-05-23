@@ -25,7 +25,7 @@ export const modules=[
     },
     {
         id:"a459d70d-d5dc-4540-a2a7-2740317e5f1d",
-        name:"VIP Management", 
+        name:"VIP Managements", 
     },
     {
         id:"a8b39d6c-ac96-4353-835c-5f73fb63d8cd",
@@ -145,28 +145,28 @@ export const permissions=[
         name:"View VIP",
         slug:slugify("View VIP"),
         description:"Can view vip management records",
-        moduleId:modules.filter((module)=>module.name ==="VIP Management")[0].id
+        moduleId:modules.filter((module)=>module.name ==="VIP Managements")[0].id
     },
     {
         id:"2b67b912-a8e7-4c3b-8e21-5c5166aaa7e3",
         name:"Create VIP",
         slug:slugify("Create VIP"),
         description:"Can create vip management records",
-        moduleId:modules.filter((module)=>module.name ==="VIP Management")[0].id
+        moduleId:modules.filter((module)=>module.name ==="VIP Managements")[0].id
     },
     {
         id:"0ba2d7a5-0e78-4512-9fa7-e1672e03aed2",
         name:"Edit VIP",
         slug:slugify("Edit VIP"),
         description:"Can edit existing vip management records",
-        moduleId:modules.filter((module)=>module.name ==="VIP Management")[0].id
+        moduleId:modules.filter((module)=>module.name ==="VIP Managements")[0].id
     },
     {
         id:"639a390a-ec42-41f6-8bcd-06b70adb60a6",
         name:"Delete VIP",
         slug:slugify("Delete VIP"),
         description:"Can delete vip management records",
-        moduleId:modules.filter((module)=>module.name ==="VIP Management")[0].id
+        moduleId:modules.filter((module)=>module.name ==="VIP Managements")[0].id
     },
     {
         id:"df573e00-354c-4df1-a7a6-412a4537c57b",
